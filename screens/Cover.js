@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Text, StyleSheet, View, SafeAreaView } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "expo-image";
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 
@@ -19,20 +25,22 @@ const Cover = () => {
           contentFit="cover"
           source={require("../assets/illustration.png")}
         />
-        <View
+        <TouchableOpacity
+          onPress={() => console.log("pressed")}
           style={[styles.createAnAccount, styles.loginLayout]}
           /// button here create an account
         >
           <Text style={[styles.createAnAccount1, styles.login1Typo]}>
             Create an account
           </Text>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => console.log("pressed")}
           style={[styles.login, styles.loginLayout]}
-          /// button login (not implemented yet)
+          /// button login onpress not implemented yet
         >
           <Text style={[styles.login1, styles.login1Typo]}>Login</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

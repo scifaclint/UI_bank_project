@@ -15,9 +15,17 @@ import Tranfer from "./screens/Tranfer";
 import TransferMainPage from "./screens/TransferMainPage";
 import TranferAuthenticate from "./screens/TranferAuthenticate";
 import CreateAnAccount from "./screens/CreateAnAccount";
+// this is CreateAnAccount
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
