@@ -51,6 +51,6 @@ const App = () => {
     return null;
   }
 
-  return <CreateAnAccount></CreateAnAccount>;
+  return <SplashScreen></SplashScreen>;
 };
 export default App;

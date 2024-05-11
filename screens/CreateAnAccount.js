@@ -13,56 +13,63 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import { Image } from "expo-image";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
+/*
+validations with yup 
+password and confirm password logic implementations 
+
+include phone numbers country code if suitable api found 
+submit button events
+
+(1/3) ignore that 
+implement back icon ,when tap takes user back to 
+
+*/
 
 const CreateAnAccount = () => {
   return (
-    <View style={styles.createAnAccount}>
-      <View
-        style={[styles.createANewAccountParent, styles.upperedge]}
-        ///container upper edge
-      >
-        <Text style={[styles.createANew, styles.textTypo]}>
-          Create a new account
-        </Text>
-        <Text style={[styles.text, styles.textTypo]}>1/3</Text>
-      </View>
-      <View
-      // container enter your details
-      >
-        <Text style={styles.enterYourDetails}>
-          Enter your details to get started
-        </Text>
-      </View>
-      <Formik
-        // implementing create an account forms
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          emailAddress: "",
-          phoneNumber: "",
-          password: "",
-          confirmPassword: "",
-        }}
-        onSubmit={(values) => console.log(values)}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
-          <>
-            <KeyboardAvoidingView
-            behavior='padding' style={{ flex: 1 }}
-            >
-              <ScrollView keyboardShouldPersistTaps="handled"
-              style={{flexGrow:1}}
-              >
+    <>
+      <ScrollView>
+        <View style={styles.createAnAccount}>
+          <View
+            style={[styles.createANewAccountParent, styles.upperedge]}
+            ///container upper edge
+          >
+            <Text style={[styles.createANew, styles.textTypo]}>
+              Create a new account
+            </Text>
+            <Text style={[styles.text, styles.textTypo]}>1/3</Text>
+          </View>
+          <View
+          // container enter your details
+          >
+            <Text style={styles.enterYourDetails}>
+              Enter your details to get started
+            </Text>
+          </View>
+          <Formik
+            // implementing create an account forms
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              emailAddress: "",
+              phoneNumber: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values }) => (
+              <>
                 <View
+                  /// forms container
                   style={{
                     alignItems: "center",
                     top: hp("10%"),
                     width: wp("100%"),
-                    height: hp("100%"),
-                    overflow: "hidden",
                   }}
                 >
                   <Text
@@ -76,6 +83,7 @@ const CreateAnAccount = () => {
                     First Name
                   </Text>
                   <TextInput
+                    onChangeText={handleChange("firstName")}
                     placeholder="First Name"
                     paddingLeft={wp("5%")}
                     style={styles.firstName}
@@ -91,6 +99,7 @@ const CreateAnAccount = () => {
                     Last Name
                   </Text>
                   <TextInput
+                    onChangeText={handleChange("lastName")}
                     placeholder="Last Name"
                     paddingLeft={wp("5%")}
                     style={styles.lastName}
@@ -106,6 +115,9 @@ const CreateAnAccount = () => {
                     Email adress
                   </Text>
                   <TextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    onChangeText={handleChange("emailAdress")}
                     placeholder="Email address"
                     paddingLeft={wp("5%")}
                     style={styles.emailAddress}
@@ -121,6 +133,8 @@ const CreateAnAccount = () => {
                     Phone number
                   </Text>
                   <TextInput
+                    onChangeText={handleChange("phoneNumber")}
+                    keyboardType="number-pad"
                     placeholder="Phone number"
                     paddingLeft={wp("5%")}
                     style={styles.phoneNumber}
@@ -136,6 +150,7 @@ const CreateAnAccount = () => {
                     Password
                   </Text>
                   <TextInput
+                    onChangeText={handleChange("password")}
                     placeholder="password"
                     paddingLeft={wp("5%")}
                     secureTextEntry
@@ -152,18 +167,25 @@ const CreateAnAccount = () => {
                     Confirm password
                   </Text>
                   <TextInput
-                    placeholder="password"
+                    onChangeText={handleChange("confirmPassword")}
+                    placeholder="confirm password"
                     paddingLeft={wp("5%")}
                     secureTextEntry
                     style={styles.conf_password}
                   ></TextInput>
                 </View>
-              </ScrollView>
-            </KeyboardAvoidingView>
-          </>
-        )}
-      </Formik>
-    </View>
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                  style={styles.sumbitBottom}
+                >
+                  <Text style={styles.textbottom}>Submit</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
@@ -173,11 +195,27 @@ const styles = StyleSheet.create({
     height: 499,
     overflow: "hidden",
   },
+  textbottom: {
+    color: Color.lightPrimaryKeyBackground,
+    textAlign: "left",
+    fontWeight: "bold",
+    position: "absolute",
+    paddingLeft: wp("17%"),
+    marginTop: 10,
+  },
   content: {
     flex: 1,
     height: hp("100%"),
   },
-
+  sumbitBottom: {
+    position: "absolute",
+    top: hp("89%"),
+    borderRadius: Border.br_31xl,
+    width: wp("50%"),
+    height: 48,
+    left: hp("10%"),
+    backgroundColor: Color.colorDarkslateblue_200,
+  },
   textPlaceholder: {
     color: Color.colorWhitesmoke_200,
     fontFamily: FontFamily.poppinsLight,

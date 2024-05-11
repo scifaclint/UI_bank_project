@@ -7,9 +7,10 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 /*
-for enrollment successfull 
+nb : has not imported this yet to app.js
+for faceverification succefull
 include some animations here 
-display for some few seconds and quit to login screen 
+display for some few seconds and quit to home screen 
 
 */
 const Verified = () => {
@@ -36,7 +37,7 @@ const Verified = () => {
         source={require("../assets/vector1.png")}
       />
       <Text style={[styles.succesfull, styles.succesfullTypo]}>
-        Enrollment Succesfull !
+        Verification Succesfull !
       </Text>
     </View>
   );

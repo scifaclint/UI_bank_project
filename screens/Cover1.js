@@ -2,7 +2,17 @@ import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import { Border, Color } from "../GlobalStyles";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+/*
+work done here 
+first to launch 
 
+implement some logic 
+ones launch , 2s and it switches to cover
+*/
 const Cover1 = () => {
   return (
     <View style={styles.cover0}>
@@ -22,15 +32,14 @@ const styles = StyleSheet.create({
     marginLeft: -58,
     top: "50%",
     left: "50%",
-    width: 115,
-    height: 116,
+    width: "30%",
+    height: "15%",
   },
   cover0: {
-    borderRadius: Border.br_4xs,
     backgroundColor: Color.colorDarkslateblue_100,
     flex: 1,
     width: "100%",
-    height: 640,
+    height: hp("100%"),
     overflow: "hidden",
   },
 });

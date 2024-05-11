@@ -1,72 +1,196 @@
 import * as React from "react";
+import { useState } from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { FontFamily, FontSize, Color, Border } from "../GlobalStyles";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { CheckBox } from "react-native-elements";
+import LoginForm from "../components/LoginForm";
 
 const SplashScreen = () => {
+  // checkbox logic also not implemented yet
+  const [rememberMe, setRememberMe] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    // Handle login logic using phoneNumber and password
+    //not implemented yet (logic )
+    console.log("Phone Number:", phoneNumber);
+    console.log("Password:", password);
+  };
   return (
-    <View style={styles.splashScreen}>
-      <Image
-        style={[styles.splashScreenChild, styles.phonePosition]}
-        contentFit="cover"
-        source={require("../assets/ellipse-1.png")}
-      />
-      <Text style={styles.welcomeToUnionpayContainer}>
-        <Text
-          style={[styles.welcomeToUnionpay, styles.loginTypo1]}
-        >{`Welcome to Unionpay
+    <>
+      <ScrollView>
+        <View style={styles.splashScreen}>
+          <Image
+            style={[styles.splashScreenChild, styles.phonePosition]}
+            contentFit="cover"
+            source={require("../assets/ellipse-1.png")}
+          />
+          <Text style={styles.welcomeToUnionpayContainer}>
+            <Text
+              style={[styles.welcomeToUnionpay, styles.loginTypo1]}
+            >{`Welcome to Unionpay
 `}</Text>
-        <Text style={styles.dontHaveAnAccountSignUp}>
-          <Text style={styles.dontHaveAnTypo}>{`
+            <Text style={styles.dontHaveAnAccountSignUp}>
+              <Text style={styles.dontHaveAnTypo}>{`
 Don’t have an account? `}</Text>
-          <Text style={styles.loginTypo1}>Sign Up</Text>
-        </Text>
-      </Text>
-      <View style={[styles.phone, styles.phoneLayout]} />
-      <Text style={[styles.enterPhoneNumber, styles.loginTypo]}>
-        Enter Phone Number
-      </Text>
-      <Image
-        style={styles.flagsIcon}
-        contentFit="cover"
-        source={require("../assets/flags.png")}
-      />
-      <View style={[styles.password, styles.tickBoxBorder]} />
-      <Text style={[styles.password1, styles.password1Typo]}>Password</Text>
-      <Image
-        style={styles.viewHidePass}
-        contentFit="cover"
-        source={require("../assets/view-hide-pass.png")}
-      />
-      <View style={[styles.tickBox, styles.tickBoxBorder]} />
-      <Text style={[styles.rememberMeForgot, styles.password1Typo]}>
-        Remember me Forgot Password?
-      </Text>
-      <View style={[styles.splashScreenItem, styles.phoneLayout]} />
-      <Text style={[styles.login, styles.loginTypo]}>Login</Text>
-      <View style={styles.contactHomeText}>
-        <Image
-          style={styles.vectorIcon}
-          contentFit="cover"
-          source={require("../assets/vector.png")}
-        />
-        <Text style={[styles.contactUs, styles.password1Typo]}>Contact Us</Text>
-      </View>
-    </View>
+              <View>
+                <TouchableOpacity
+                /// text button sign up
+                // logic not implemented yet
+                >
+                  <Text style={styles.loginTypo1}>Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+            </Text>
+          </Text>
+
+          <View style={[styles.phone, styles.phoneLayout]} />
+
+          <TextInput
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            placeholder="Enter
+            Phone
+            Number"
+            style={[styles.enterPhoneNumber, styles.loginTypo]}
+          ></TextInput>
+          <Image
+            style={styles.flagsIcon}
+            contentFit="cover"
+            source={require("../assets/flags.png")}
+          />
+          <View style={[styles.password, styles.tickBoxBorder]} />
+          <TextInput
+            placeholder="Enter Your password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={[styles.password1, styles.password1Typo]}
+          ></TextInput>
+
+          <Image
+            style={styles.viewHidePass}
+            contentFit="cover"
+            source={require("../assets/view-hide-pass.png")}
+          />
+          <View
+            style={{
+              top: hp("58%"),
+              left: wp("3%"),
+              width: wp("46%"),
+            }}
+          >
+            <CheckBox
+              style={{
+                position: "absolute",
+                backgroundColor: "transparent",
+                borderWidth: 0,
+                margin: 0,
+                padding: 0,
+              }}
+              title="Remember Me"
+              checked={rememberMe}
+              containerStyle={styles.checkboxContainer}
+              textStyle={styles.checkboxText}
+              onPress={() => setRememberMe(!rememberMe)}
+            />
+          </View>
+          <View
+            style={{
+              top: hp("54%"),
+              left: wp("58%"),
+              width: wp("46%"),
+              borderWidth: 1, // Border width
+              borderColor: "transparent", // Border color
+              borderRadius: 5, // Border radius for rounded corners
+              padding: 10, // Padding inside the rectangle
+              backgroundColor: "transparent",
+            }}
+          >
+            <TouchableOpacity
+            // forgot password logic wont be implemented for this project
+            >
+              <Text style={styles.checkboxText}>Forgot Password ?</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={handleLogin}
+            // container styles
+            // onpress or button logic not implemented yet
+            style={styles.loginContainer}
+          >
+            <Text style={styles.loginText}>Login</Text>
+          </TouchableOpacity>
+          <View style={styles.contactHomeText}>
+            <Image
+              style={styles.vectorIcon}
+              contentFit="cover"
+              source={require("../assets/vector.png")}
+            />
+            <TouchableOpacity>
+              <Text style={[styles.contactUs, styles.password1Typo]}>
+                Contact Us
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   phonePosition: {
     left: "50%",
-    top: "50%",
+    top: "40%",
+  },
+  checkboxText: {
+    fontFamily: FontFamily.interExtraBold,
+    fontWeight: "bold",
+  },
+  checkboxContainer: {
+    backgroundColor: "transparent", // Background color of the checkbox container
+    borderWidth: 0, // Remove border
+    padding: 0, // Padding
+    margin: 0, // Margin
+  },
+  loginText: {
+    color: Color.lightPrimaryKeyBackground,
+    textAlign: "left",
+    fontWeight: "bold",
+    position: "absolute",
+    paddingLeft: wp("15%"),
+    marginTop: 10,
+  },
+  loginContainer: {
+    position: "absolute",
+    top: hp("66%"),
+    borderRadius: Border.br_31xl,
+    width: wp("40%"),
+    height: hp("6%"),
+    left: wp("28%"),
+    backgroundColor: Color.colorDarkslateblue_200,
   },
   loginTypo1: {
     fontFamily: FontFamily.interExtraBold,
     fontWeight: "800",
+    color: Color.colorDarkslateblue_200,
   },
   phoneLayout: {
-    height: 45,
+    height: 49,
     position: "absolute",
   },
   loginTypo: {
@@ -89,8 +213,8 @@ const styles = StyleSheet.create({
   splashScreenChild: {
     marginTop: -248,
     marginLeft: -57,
-    width: 115,
-    height: 116,
+    width: wp("30%"),
+    height: hp("15%"),
     position: "absolute",
   },
   welcomeToUnionpay: {
@@ -102,13 +226,12 @@ const styles = StyleSheet.create({
   },
   dontHaveAnAccountSignUp: {
     fontSize: FontSize.size_sm,
+    position: "relative",
   },
   welcomeToUnionpayContainer: {
-    top: 210,
-    left: 89,
+    top: hp("30%"),
+    left: wp("25%"),
     color: Color.colorDarkslateblue_200,
-    width: 229,
-    height: 78,
     textAlign: "left",
     position: "absolute",
   },
@@ -116,59 +239,50 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: -148,
     backgroundColor: "#e2e1e1",
-    width: 296,
+    width: "75%",
     borderRadius: Border.br_3xs,
-    left: "50%",
-    top: "50%",
+    left: "45%",
+    top: "40%",
   },
   enterPhoneNumber: {
-    top: 333,
-    left: 95,
+    top: "42%",
+    left: "25%",
     color: "rgba(0, 0, 0, 0.9)",
-    width: 157,
-    height: 25,
+    width: "75%",
     fontFamily: FontFamily.interMedium,
     fontWeight: "500",
   },
   flagsIcon: {
-    top: 334,
-    left: 45,
-    width: 27,
-    height: 17,
+    top: "42%",
+    left: "12%",
+    width: wp("8%"),
+    height: hp("2%"),
     position: "absolute",
     overflow: "hidden",
   },
   password: {
-    top: 380,
-    left: 32,
+    top: "49%",
+    left: "7%",
     borderColor: Color.colorGray_200,
     borderWidth: 1,
-    width: 297,
+    width: "75%",
     height: 46,
     borderRadius: Border.br_3xs,
   },
   password1: {
-    top: 394,
-    width: 173,
-    left: 58,
+    top: "50%",
+    width: "90%",
+    left: "20%",
     fontFamily: FontFamily.interRegular,
   },
-  viewHidePass: {
-    top: 391,
-    left: 294,
-    width: 24,
-    height: 24,
-    position: "absolute",
-  },
-  tickBox: {
-    top: 457,
-    left: 36,
-    borderRadius: 1,
-    borderColor: Color.lightText,
-    borderWidth: 2,
-    width: 19,
-    height: 16,
-  },
+  // viewHidePass: {
+  //   top: "50%",
+  //   left: "70%",
+  //   width: 24,
+  //   height: 24,
+  //   position: "absolute",
+  // },
+
   rememberMeForgot: {
     top: 456,
     width: 283,
@@ -176,14 +290,12 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.interRegular,
   },
   splashScreenItem: {
-    top: 495,
-    left: 85,
     borderRadius: Border.br_xl,
     backgroundColor: Color.colorDarkslateblue_200,
     width: 209,
   },
   login: {
-    top: 509,
+    top: hp("70%"),
     left: 168,
     letterSpacing: 0.3,
     color: Color.lightPrimaryKeyBackground,
@@ -203,21 +315,21 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   contactUs: {
-    top: "24.66%",
-    left: "32.85%",
+    top: hp("5%"),
+    left: wp("10%"),
   },
   contactHomeText: {
-    top: 562,
-    left: 112,
-    width: 137,
-    height: 73,
+    top: hp("85%"),
+    left: wp("25%"),
+    width: wp("32%"),
+    height: hp("8%"),
     position: "absolute",
   },
   splashScreen: {
     borderRadius: Border.br_4xs,
     flex: 1,
     width: "100%",
-    height: 640,
+    height: hp("100%"),
     overflow: "hidden",
     backgroundColor: Color.lightPrimaryKeyBackground,
   },

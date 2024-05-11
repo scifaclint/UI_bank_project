@@ -1,5 +1,9 @@
 import * as React from "react";
 import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import {
   Text,
   StyleSheet,
   View,
@@ -8,41 +12,53 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
+/*
+lauch screen ; cover1
+second after that cover
+cover2 not needed anyway 
 
+
+animation :: hence using only screen/cover
+implement animations here , animations should be changing 
+vector images while user has not tapped any button 
+
+screen/cover fully responsive 
+implement on tap login and create account logic
+*/
 const Cover = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.cover1}>
-        <Text style={styles.aSecureWay}>A Secure Way to Bank</Text>
-        <View style={styles.lineParent}>
-          <View style={[styles.frameChild, styles.frameLayout]} />
-          <View style={[styles.frameItem, styles.frameBorder]} />
-          <View style={[styles.frameInner, styles.frameBorder]} />
-        </View>
-        <Image
-          /// Ui image here
-          style={styles.illustrationIcon}
-          contentFit="cover"
-          source={require("../assets/illustration.png")}
-        />
-        <TouchableOpacity
-          onPress={() => console.log("pressed")}
-          style={[styles.createAnAccount, styles.loginLayout]}
-          /// button here create an account
-        >
-          <Text style={[styles.createAnAccount1, styles.login1Typo]}>
-            Create an account
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => console.log("pressed")}
-          style={[styles.login, styles.loginLayout]}
-          /// button login onpress not implemented yet
-        >
-          <Text style={[styles.login1, styles.login1Typo]}>Login</Text>
-        </TouchableOpacity>
+    <View style={styles.cover1}>
+      <Text style={styles.aSecureWay}>A Secure Way to Bank</Text>
+      <View style={styles.lineParent}>
+        <View style={[styles.frameChild, styles.frameLayout]} />
+        <View style={[styles.frameItem, styles.frameBorder]} />
+        <View style={[styles.frameInner, styles.frameBorder]} />
       </View>
-    </SafeAreaView>
+      <Image
+        /// Ui image here
+        style={styles.illustrationIcon}
+        contentFit="cover"
+        source={require("../assets/illustration.png")}
+      />
+      <TouchableOpacity
+        onPress={() => console.log("pressed")}
+        style={[styles.createAnAccount, styles.loginLayout]}
+        /// button here create an account
+      >
+        <Text style={[styles.createAnAccount1, styles.login1Typo]}>
+          Create an account
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => console.log("pressed")}
+        style={[styles.login, styles.loginLayout]}
+        /// button login onpress not implemented yet
+      >
+        <Text style={[styles.login1, styles.login1Typo, styles.loginbox]}>
+          Login
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -56,13 +72,18 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
   },
   loginLayout: {
-    height: 51,
-    width: 296,
+    height: hp("5%"),
+    width: wp("60%"),
     borderRadius: Border.br_31xl,
     position: "absolute",
     overflow: "hidden",
   },
   login1Typo: {
+    textAlign: "center",
+    fontFamily: FontFamily.poppinsLight,
+    fontWeight: "bold",
+  },
+  Typo: {
     fontFamily: FontFamily.poppinsBold,
     fontSize: FontSize.size_sm,
     top: "50%",
@@ -72,12 +93,15 @@ const styles = StyleSheet.create({
     left: "50%",
     position: "absolute",
   },
+  loginbox: {
+    marginTop: 7,
+  },
   aSecureWay: {
     marginLeft: -136,
-    top: 111,
+    top: hp("16%"),
     fontSize: FontSize.size_5xl,
     fontFamily: FontFamily.dMSansBold,
-    width: 257,
+    width: wp("100%"),
     textAlign: "left",
     fontWeight: "700",
     color: Color.lightPrimaryKeyBackground,
@@ -86,22 +110,22 @@ const styles = StyleSheet.create({
   },
   frameChild: {
     borderColor: Color.colorGray_300,
-    width: 64,
+    width: wp("19%"),
     zIndex: 0,
     borderStyle: "solid",
     borderTopWidth: 1,
   },
   frameItem: {
-    width: 63,
+    width: wp("19%"),
     zIndex: 1,
-    marginLeft: 130,
+    marginLeft: 135,
     height: 1,
     borderTopWidth: 1,
   },
   frameInner: {
     top: 0,
-    left: 95,
-    width: 65,
+    left: 99,
+    width: wp("19%"),
     zIndex: 2,
     height: 1,
     borderTopWidth: 1,
@@ -109,13 +133,13 @@ const styles = StyleSheet.create({
   },
   lineParent: {
     marginLeft: -128,
-    top: 78,
+    top: hp("10%"),
     flexDirection: "row",
     left: "50%",
     position: "absolute",
   },
   illustrationIcon: {
-    height: "37.5%",
+    height: hp("37%"),
     width: "68.06%",
     top: "25.47%",
     right: "20.83%",
@@ -135,8 +159,8 @@ const styles = StyleSheet.create({
     marginTop: -10.5,
   },
   createAnAccount: {
-    top: 720,
-    left: 60,
+    top: hp("88%"),
+    left: wp("20%"),
     borderWidth: 2,
     borderColor: Color.lightPrimaryKeyBackground,
     borderStyle: "solid",
@@ -146,16 +170,15 @@ const styles = StyleSheet.create({
     color: Color.colorDarkslateblue_200,
   },
   login: {
-    top: 650,
-    left: 60,
+    top: hp("80%"),
+    left: wp("20%"),
     backgroundColor: Color.lightPrimaryKeyBackground,
   },
   cover1: {
-    borderRadius: Border.br_4xs,
     backgroundColor: Color.colorDarkslateblue_100,
     flex: 1,
-    width: "100%",
-    height: 640,
+    width: wp("100%"),
+    height: hp("100%"),
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
