@@ -1,28 +1,34 @@
 import * as React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { FontFamily, FontSize, Color, Border } from "../GlobalStyles";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import AnimationFaceId from "../components/AnimationFaceId";
+
+
 
 const FaceIdAuthen = () => {
   return (
     <View style={styles.faceIdAuthen}>
       <Text
         style={[styles.completeEventBy, styles.scanMyFaceTypo]}
-      >{`            Complete event  by 
-          scanning your face`}</Text>
+      >{`Complete event  by scanning your face`}</Text>
       <Image
         style={styles.faceIdAuthenChild}
         contentFit="cover"
         source={require("../assets/ellipse-2.png")}
       />
-      <View style={styles.faceIdAuthenItem} />
-      <Text style={[styles.scanMyFace, styles.scanMyFaceTypo]}>
-        Scan my face
-      </Text>
-      <Image
+      <TouchableOpacity
+      // scan logic would be implemented
+      style={styles.faceIdAuthenItem}>
+        <Text style={styles.scanFaceText}>Scan</Text>
+      </TouchableOpacity>
+      <AnimationFaceId
         style={styles.faceIcon}
-        contentFit="cover"
-        source={require("../assets/face.png")}
+       
       />
     </View>
   );
@@ -36,50 +42,57 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xl,
     position: "absolute",
   },
+  scanFaceText: {
+    color: Color.lightPrimaryKeyBackground,
+    textAlign: "left",
+    fontFamily: FontFamily.interExtraBold,
+    fontWeight: "800",
+    fontSize: FontSize.size_xl,
+    position: "absolute",
+    left: wp("20%"),
+    top: 5,
+  },
   completeEventBy: {
-    marginLeft: -142,
-    top: 125,
+    marginLeft: -wp("45%"),
+    top: hp("21%"),
     color: Color.colorDarkslateblue_200,
-    width: 309,
-    height: 71,
+    width: wp("100%"),
+    height: wp("100%"),
     left: "50%",
   },
   faceIdAuthenChild: {
-    top: 216,
-    left: 80,
+    top: hp("38%"),
+    left: wp("25%"),
     width: 204,
     height: 190,
     position: "absolute",
   },
   faceIdAuthenItem: {
-    top: 495,
-    left: 66,
+    top: hp("75%"),
+    left: wp("25%"),
     borderRadius: Border.br_xl,
     backgroundColor: Color.colorDarkslateblue_200,
-    width: 231,
+    width: wp("50%"),
     height: 45,
     position: "absolute",
   },
   scanMyFace: {
-    top: 506,
+    top: 509,
     left: 116,
     color: Color.lightPrimaryKeyBackground,
   },
   faceIcon: {
-    marginTop: -34,
-    marginLeft: -39,
-    top: "50%",
-    width: 85,
-    height: 70,
+    marginTop: -100,
+    marginLeft: -90,
+    top: hp("50%"),
     left: "50%",
     position: "absolute",
   },
   faceIdAuthen: {
-    borderRadius: Border.br_4xs,
     backgroundColor: Color.lightPrimaryKeyBackground,
     flex: 1,
-    width: "100%",
-    height: 640,
+    width: wp("100%"),
+    height: hp("100%"),
     overflow: "hidden",
   },
 });

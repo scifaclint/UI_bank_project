@@ -15,7 +15,6 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { CheckBox } from "react-native-elements";
-import LoginForm from "../components/LoginForm";
 
 const SplashScreen = () => {
   // checkbox logic also not implemented yet

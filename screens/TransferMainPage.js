@@ -46,11 +46,7 @@ const TransferMainPage = () => {
           />
           <Text style={styles.sourceAccount}>Source Account</Text>
           <Text style={[styles.text, styles.textTypo]}>12,000.00</Text>
-          <Image
-            style={styles.iconParkSoliddownC}
-            contentFit="cover"
-            source={require("../assets/iconparksoliddownc1.png")}
-          />
+
           <Text style={[styles.davidAdebayo, styles.text1Typo]}>
             DAVID ADEBAYO
           </Text>
@@ -76,97 +72,9 @@ const TransferMainPage = () => {
           <View style={styles.groupChild} />
           <Text style={styles.sourceAccount}>Remark (Optional)</Text>
         </View>
-        <View style={styles.rectangleParent3}>
-          <View style={[styles.groupChild3, styles.groupChildLayout]} />
-          <View style={[styles.groupChild4, styles.groupChildLayout]} />
-          <View style={[styles.finish, styles.finishPosition]}>
-            <Text style={[styles.proceed, styles.textTypo]}>{`Proceed `}</Text>
-          </View>
-          <Text style={[styles.scheduleTransfer, styles.saveBeneficiaryTypo]}>
-            Schedule transfer
-          </Text>
-          <Text
-            style={[styles.saveBeneficiary, styles.saveBeneficiaryTypo]}
-          >{`Save beneficiary `}</Text>
-        </View>
-        <Text style={[styles.text1, styles.text1Typo]}>1006255489</Text>
+
       </View>
-      <View style={[styles.bottomBar, styles.bottomLayout]}>
-        <Image
-          style={[styles.bottomBarChild, styles.bottomLayout]}
-          contentFit="cover"
-          source={require("../assets/rectangle-19368.png")}
-        />
-        <View style={[styles.bottomBarInner, styles.groupChild5Layout]}>
-          <View style={[styles.groupChild5, styles.groupChild5Layout]} />
-        </View>
-        <View style={[styles.groupContainer, styles.homeParentLayout]}>
-          <View style={[styles.homeParent, styles.homeParentLayout]}>
-            <Text style={[styles.home, styles.homeTypo]}>Home</Text>
-            <Image
-              style={[styles.iconlybulkhome, styles.iconlybulkhomePosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkhome1.png")}
-            />
-          </View>
-          <View style={[styles.cardsParent, styles.parentPosition]}>
-            <Text style={[styles.cards, styles.cardsTypo]}>Cards</Text>
-            <Image
-              style={[styles.iconlybulkticket, styles.iconlybulkticketPosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket.png")}
-            />
-          </View>
-          <View style={styles.billsParent}>
-            <Text style={[styles.bills, styles.homeTypo]}>Bills</Text>
-            <Image
-              style={[styles.iconlybulkticket1, styles.groupLayout]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket3.png")}
-            />
-          </View>
-          <View style={[styles.moreParent, styles.parentPosition]}>
-            <Text style={[styles.cards, styles.cardsTypo]}>More</Text>
-            <Image
-              style={[
-                styles.iconlybulkcategory,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkcategory.png")}
-            />
-          </View>
-          <View style={styles.iconlybulkticketParent}>
-            <Image
-              style={[
-                styles.iconlybulkticket2,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket4.png")}
-            />
-            <Text style={[styles.transfers, styles.cardsTypo]}>Transfers</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.statusBar}>
-        <Image
-          style={[styles.batteryIcon, styles.iconLayout]}
-          contentFit="cover"
-          source={require("../assets/battery.png")}
-        />
-        <Image
-          style={[styles.wifiIcon, styles.iconLayout]}
-          contentFit="cover"
-          source={require("../assets/wifi.png")}
-        />
-        <Image
-          style={[styles.cellularConnectionIcon, styles.iconLayout]}
-          contentFit="cover"
-          source={require("../assets/cellular-connection.png")}
-        />
-        <Text style={styles.text2}>9:41</Text>
-      </View>
+      
     </View>
   );
 };

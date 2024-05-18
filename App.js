@@ -11,10 +11,13 @@ import SplashScreen from "./screens/SplashScreen";
 import FaceIdAuthen from "./screens/FaceIdAuthen";
 import Scanning from "./screens/Scanning";
 import Verified from "./screens/Verified";
-import Tranfer from "./screens/Tranfer";
 import TransferMainPage from "./screens/TransferMainPage";
 import TranferAuthenticate from "./screens/TranferAuthenticate";
 import CreateAnAccount from "./screens/CreateAnAccount";
+import RecentNotification from "./components/RecentNotification";
+import AnimationFaceId from "./components/AnimationFaceId";
+import Success from "./modals/Success";
+import CameraComponent from "./components/camera";
 // this is CreateAnAccount
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -26,6 +29,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import Failed from "./modals/Failed";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -51,6 +55,6 @@ const App = () => {
     return null;
   }
 
-  return <SplashScreen></SplashScreen>;
+  return <FaceIdAuthen></FaceIdAuthen>;
 };
 export default App;

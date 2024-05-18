@@ -43,9 +43,9 @@ const TranferAuthenticate = () => {
           </View>
         </View>
         <View style={[styles.n50000Parent, styles.groupInnerLayout]}>
-          <Text style={[styles.n50000, styles.bankFlexBox]}>N500.00</Text>
+          <Text style={[styles.n50000, styles.bankFlexBox]}>500.00</Text>
           <View style={styles.n2500Parent}>
-            <Text style={[styles.n2500, styles.feeTypo]}>N25.00</Text>
+            <Text style={[styles.n2500, styles.feeTypo]}>25.00</Text>
             <Text style={[styles.fee, styles.feeTypo]}>fee</Text>
           </View>
         </View>

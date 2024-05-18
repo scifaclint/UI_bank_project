@@ -4,243 +4,69 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
-import RecentNotification from "../components/RecentNotification";
-
-const Home = () => {
+function BottomBar(props) {
   return (
-    <View style={styles.home}>
+    <View
+      // bottom bar here
+      style={[styles.bottomBar, styles.bottomLayout]}
+    >
       <Image
-        style={[styles.homeChild, styles.homeChildPosition]}
+        style={[styles.bottomBarChild, styles.bottomLayout]}
         contentFit="cover"
-        source={require("../assets/ellipse-12.png")}
-        // replace source with user image
+        source={require("../assets/rectangle-19368.png")}
       />
-      <Text style={[styles.hiDavid, styles.hiDavidTypo]}>Hi,Username</Text>
-
-      <Text style={[styles.recentTransactions, styles.quickActionsTypo]}>
-        Recent transactions
-      </Text>
-      <TouchableOpacity>
-        <Text
-          // implement touch here later
-          style={[styles.viewAll, styles.hiDavidTypo]}
-        >
-          View all
-        </Text>
-      </TouchableOpacity>
-
-      <View style={styles.homeItem} />
-
-      <View
-        style={styles.ellipseParent}
-        // ellipse account balance container
-      >
-        <Image
-          contentFit="cover"
-          source={require("../assets/ellipse-13.png")}
-        />
-        <Text style={[styles.availableBalance, styles.textPosition]}>
-          Available balance
-        </Text>
-        <Text style={[styles.text, styles.textPosition]}>100,000 cedis</Text>
+      <View style={[styles.bottomBarInner, styles.groupChild18Layout]}>
+        <View style={[styles.groupChild18, styles.groupChild18Layout]} />
       </View>
-      <Text style={[styles.quickActions, styles.quickActionsTypo]}>
-        Quick Actions
-      </Text>
-      <View
-        /// grouped here
-        style={{
-          flex: 1,
-          position: "absolute",
-          top: hp("2%"),
-          width: wp("100%"),
-        }}
-      >
-        <TouchableOpacity
-          // logic would implemented here onpress
-          // only the important section
-          style={[styles.ellipseGroup, styles.ellipsePosition]}
-        >
+      <View style={[styles.groupParent1, styles.parentLayout]}>
+        <View style={[styles.homeParent, styles.parentLayout]}>
+          <Text style={styles.home1}>Home</Text>
           <Image
-            style={[styles.ellipseIcon, styles.ellipseIconLayout]}
+            style={[styles.iconlybulkhome, styles.iconlybulkhomePosition]}
             contentFit="cover"
-            source={require("../assets/ellipse-645.png")}
-          />
-          <Image
-            style={[styles.iconlybulkswap, styles.iconlybulkswapPosition]}
-            contentFit="cover"
-            source={require("../assets/iconlybulkswap.png")}
-          />
-          <Text style={[styles.transfer, styles.morePosition]}>Transfer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.ellipseContainer}>
-          <Image
-            style={[styles.ellipseIcon, styles.ellipseIconLayout]}
-            contentFit="cover"
-            source={require("../assets/ellipse-645.png")}
-          />
-          <Image
-            style={[styles.iconlybulkwallet, styles.iconlybulkswapPosition]}
-            contentFit="cover"
-            source={require("../assets/iconlybulkwallet.png")}
-          />
-          <Text style={[styles.airtime, styles.airtimePosition]}>Airtime</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.ellipseParent1, styles.ellipsePosition]}
-        >
-          <Image
-            style={[styles.groupChild14, styles.ellipseIconLayout]}
-            contentFit="cover"
-            source={require("../assets/ellipse-645.png")}
-          />
-          <Image
-            style={[styles.iconlybulkwork, styles.iconlybulkswapPosition]}
-            contentFit="cover"
-            source={require("../assets/iconlybulkwork.png")}
-          />
-          <Text style={[styles.statement, styles.morePosition]}>Statement</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.moreParent, styles.parentPosition]}>
-          <Text style={[styles.more, styles.moreTypo]}>More</Text>
-          <Image
-            style={[styles.ellipseIcon, styles.ellipseIconLayout]}
-            contentFit="cover"
-            source={require("../assets/ellipse-645.png")}
-          />
-          <Image
-            style={[styles.vectorIcon, styles.iconLayout]}
-            contentFit="cover"
-            source={require("../assets/vector2.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.bettingParent, styles.parentPosition]}>
-          <Text style={[styles.betting, styles.moreTypo]}>Betting</Text>
-          <Image
-            style={[styles.ellipseIcon, styles.ellipseIconLayout]}
-            contentFit="cover"
-            source={require("../assets/group-12879.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.internetParent, styles.parentPosition]}
-        >
-          <Text style={[styles.internet, styles.moreTypo]}>Internet</Text>
-          <Image
-            style={[styles.ellipseIcon, styles.ellipseIconLayout]}
-            contentFit="cover"
-            source={require("../assets/group-12878.png")}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <Text style={[styles.welcome, styles.moreTypo]}>Welcome!</Text>
-      <View
-        style={[styles.frameGroup]}
-        // notification container
-      >
-        <TouchableOpacity
-          style={[styles.notificationWrapper, styles.notificationPosition]}
-          // main notification icon
-        >
-          <Image
-            style={styles.notificationIconLayout}
-            contentFit="cover"
-            source={require("../assets/notification.png")}
-          />
-        </TouchableOpacity>
-        <View
-          style={[styles.notificationMessage, styles.notificationPosition]}
-          // red dot on notification bell
-          // implement logic to only show when there is a message
-        >
-          <Image
-            style={styles.notificationMessageChild}
-            contentFit="cover"
-            source={require("../assets/ellipse-23.png")}
+            source={require("../assets/iconlybulkhome.png")}
           />
         </View>
+        <TouchableOpacity
+          style={[styles.cardsParent, styles.moreGroupPosition]}
+        >
+          <Text style={[styles.cards, styles.cardsTypo]}>Cards</Text>
+          <Image
+            style={[styles.iconlybulkticket, styles.iconlybulkticketPosition]}
+            contentFit="cover"
+            source={require("../assets/iconlybulkticket.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.billsParent}>
+          <Text style={[styles.bills, styles.cardsTypo]}>Bills</Text>
+          <Image
+            style={[styles.iconlybulkticket1, styles.iconLayout]}
+            contentFit="cover"
+            source={require("../assets/iconlybulkticket1.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.moreGroup, styles.moreGroupPosition]}>
+          <Text style={[styles.cards, styles.cardsTypo]}>More</Text>
+          <Image
+            style={[styles.iconlybulkcategory, styles.iconlybulkticketPosition]}
+            contentFit="cover"
+            source={require("../assets/iconlybulkcategory.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconlybulkticketParent}>
+          <Image
+            style={[styles.iconlybulkticket2, styles.iconlybulkticketPosition]}
+            contentFit="cover"
+            source={require("../assets/iconlybulkticket2.png")}
+          />
+          <Text style={[styles.cards, styles.cardsTypo]}>Transfer</Text>
+        </TouchableOpacity>
       </View>
-      <View
-        // bottom bar here
-        style={[styles.bottomBar, styles.bottomLayout]}
-      >
-        <Image
-          style={[styles.bottomBarChild, styles.bottomLayout]}
-          contentFit="cover"
-          source={require("../assets/rectangle-19368.png")}
-        />
-        <View style={[styles.bottomBarInner, styles.groupChild18Layout]}>
-          <View style={[styles.groupChild18, styles.groupChild18Layout]} />
-        </View>
-        <View style={[styles.groupParent1, styles.parentLayout]}>
-          <View style={[styles.homeParent, styles.parentLayout]}>
-            <Text style={styles.home1}>Home</Text>
-            <Image
-              style={[styles.iconlybulkhome, styles.iconlybulkhomePosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkhome.png")}
-            />
-          </View>
-          <TouchableOpacity
-            style={[styles.cardsParent, styles.moreGroupPosition]}
-          >
-            <Text style={[styles.cards, styles.cardsTypo]}>Cards</Text>
-            <Image
-              style={[styles.iconlybulkticket, styles.iconlybulkticketPosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.billsParent}>
-            <Text style={[styles.bills, styles.cardsTypo]}>Bills</Text>
-            <Image
-              style={[styles.iconlybulkticket1, styles.iconLayout]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket1.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.moreGroup, styles.moreGroupPosition]}
-          >
-            <Text style={[styles.cards, styles.cardsTypo]}>More</Text>
-            <Image
-              style={[
-                styles.iconlybulkcategory,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkcategory.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconlybulkticketParent}>
-            <Image
-              style={[
-                styles.iconlybulkticket2,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket2.png")}
-            />
-            <Text style={[styles.cards, styles.cardsTypo]}>Transfer</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View
-        
-        /*
-        replace view with custom component
-        position it well
-        customize recent notification component 
-        this section should appear when transactions sent or 
-        received ,get date all and implement
-        */
-      ></View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   iconLayout: {
@@ -254,7 +80,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   RecentNotificationStyle: {
-    top: hp("70%"),
+    top: hp("80%"),
   },
   hiDavidTypo: {
     textAlign: "left",
@@ -821,4 +647,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+
+export default BottomBar;
+
+
