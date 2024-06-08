@@ -15,6 +15,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { CheckBox } from "react-native-elements";
+import ForgotPassword from "../modals/ForgotPassword";
 
 const SplashScreen = () => {
   // checkbox logic also not implemented yet
@@ -28,6 +29,16 @@ const SplashScreen = () => {
     console.log("Phone Number:", phoneNumber);
     console.log("Password:", password);
   };
+
+  // handle forgot password
+  const [visible, setvisible] = useState(false);
+
+  const [onclose, setOnclose] = useState(false);
+
+  const getItClosed = () =>{
+    setvisible(false)
+  }
+
   return (
     <>
       <ScrollView>
@@ -120,9 +131,10 @@ Don’t have an account? `}</Text>
             }}
           >
             <TouchableOpacity
-            // forgot password logic wont be implemented for this project
+              // forgot password logic wont be implemented for this project
+              onPress={() => setvisible(true)}
             >
-              <Text style={styles.checkboxText}>Forgot Password ?</Text>
+              <Text style={styles.checkboxText}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -145,6 +157,9 @@ Don’t have an account? `}</Text>
               </Text>
             </TouchableOpacity>
           </View>
+          <ForgotPassword 
+          onClose={getItClosed}
+          isVisible={visible} />
         </View>
       </ScrollView>
     </>

@@ -1,9 +1,34 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import BackArrow from "../components/BackArrow";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
+import BottomBar from "../components/BottomBar";
+import AppBottom from "../components/AppBottom";
 
 const TransferMainPage = () => {
+  const [getDestination, setDestination] = React.useState();
+  const [amount, setAmount] = React.useState();
+  const handPressed = () => {
+    //handle proceed button
+    /*
+    add a modal to get recipient account details
+    a message sent "amount" to 
+    confirm button
+
+    */
+    console.log("pressed");
+  };
   return (
     <View style={styles.transferMainPage}>
       <Image
@@ -14,9 +39,9 @@ const TransferMainPage = () => {
       <Text style={[styles.beneficiaries, styles.viewAllTypo]}>
         Beneficiaries
       </Text>
-      <View style={styles.viewAllWrapper}>
+      <TouchableOpacity style={styles.viewAllWrapper}>
         <Text style={[styles.viewAll, styles.viewAllTypo]}>View All</Text>
-      </View>
+      </TouchableOpacity>
       <Text style={styles.transferPayment}>{`Transfer & Payment`}</Text>
       <View style={styles.rectangleParent}>
         <View style={[styles.frameChild, styles.frameLayout]} />
@@ -26,9 +51,9 @@ const TransferMainPage = () => {
           contentFit="cover"
           source={require("../assets/ellipse-6461.png")}
         />
-        <Text style={[styles.koredeOjo, styles.koredeOjoTypo]}>Korede Ojo</Text>
+        <Text style={[styles.koredeOjo, styles.koredeOjoTypo]}>GT Bank</Text>
         <Text style={[styles.opeyemiFalogun, styles.koredeOjoTypo]}>
-          Opeyemi Falogun
+          Venus Bank
         </Text>
         <Image
           style={[styles.ellipseIcon, styles.frameInnerLayout]}
@@ -37,44 +62,38 @@ const TransferMainPage = () => {
         />
       </View>
       <View style={styles.groupParent}>
-        <View style={[styles.rectangleGroup, styles.groupParentLayout]}>
-          <View style={styles.groupChild} />
-          <Image
-            style={styles.currencyIcon}
-            contentFit="cover"
-            source={require("../assets/currency.png")}
-          />
-          <Text style={styles.sourceAccount}>Source Account</Text>
-          <Text style={[styles.text, styles.textTypo]}>12,000.00</Text>
+        <View
+          // destination box
+          style={[styles.rectangleContainer, styles.groupParentLayout]}
+        >
+          <TextInput
+            // implement logic to check account number being correct
 
-          <Text style={[styles.davidAdebayo, styles.text1Typo]}>
-            DAVID ADEBAYO
-          </Text>
-        </View>
-        <View style={[styles.rectangleContainer, styles.groupParentLayout]}>
-          <View style={styles.groupChild} />
+            placeholder="Enter Recipient Account Number"
+            value={getDestination}
+            onChange={setDestination}
+            onChangeText={(text) => setDestination(text)}
+            style={styles.groupChild}
+          />
           <Text style={styles.sourceAccount}>Destination Account</Text>
         </View>
         <View style={[styles.groupView, styles.groupParentLayout]}>
-          <View style={styles.groupChild} />
-          <Text style={styles.sourceAccount}>Amount</Text>
-        </View>
-        <View style={[styles.rectangleParent1, styles.groupParentLayout]}>
-          <View style={styles.groupChild} />
-          <Image
-            style={[styles.groupChild1, styles.groupLayout]}
-            contentFit="cover"
-            source={require("../assets/group-12932.png")}
+          <TextInput
+            placeholder="0.00"
+            value={amount}
+            onChange={setAmount}
+            onChangeText={(text) => setAmount(text)}
+            style={styles.groupChild}
           />
-          <Text style={styles.sourceAccount}>Category</Text>
+          <Text style={styles.sourceAccount}>Amount (GH₵ )</Text>
         </View>
-        <View style={[styles.rectangleParent2, styles.groupParentLayout]}>
-          <View style={styles.groupChild} />
-          <Text style={styles.sourceAccount}>Remark (Optional)</Text>
-        </View>
-
       </View>
-      
+      <View style={styles.AppBottom}>
+        <AppBottom text="Proceed" onPress={handPressed}></AppBottom>
+      </View>
+      <View style={styles.backArrow}>
+        <BackArrow color={Color.colorDarkslateblue_200} />
+      </View>
     </View>
   );
 };
@@ -85,6 +104,14 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     overflow: "hidden",
     position: "absolute",
+  },
+  backArrow: {
+    top: 59,
+    left: "5%",
+  },
+  AppBottom: {
+    top: hp("65%"),
+    left: wp("25%"),
   },
   viewAllTypo: {
     fontFamily: FontFamily.poppinsSemiBold,
@@ -270,7 +297,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   opeyemiFalogun: {
-    left: 138,
+    left: 150,
     zIndex: 4,
   },
   ellipseIcon: {
@@ -297,6 +324,7 @@ const styles = StyleSheet.create({
     left: "50%",
     position: "absolute",
     backgroundColor: Color.lightPrimaryKeyBackground,
+    padding: 15,
   },
   currencyIcon: {
     left: 10,
@@ -553,8 +581,8 @@ const styles = StyleSheet.create({
   },
   transferMainPage: {
     flex: 1,
-    height: 812,
-    width: "100%",
+    height: hp("100"),
+    width: wp("100%"),
     backgroundColor: Color.lightPrimaryKeyBackground,
   },
 });

@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
+import CoverAnimation from "../components/CoverAnimation";
 /*
 lauch screen ; cover1
 second after that cover
@@ -34,12 +35,9 @@ const Cover = () => {
         <View style={[styles.frameItem, styles.frameBorder]} />
         <View style={[styles.frameInner, styles.frameBorder]} />
       </View>
-      <Image
-        /// Ui image here
-        style={styles.illustrationIcon}
-        contentFit="cover"
-        source={require("../assets/illustration.png")}
-      />
+       <View style={styles.animationStyle}>
+        <CoverAnimation></CoverAnimation>
+       </View>
       <TouchableOpacity
         onPress={() => console.log("pressed")}
         style={[styles.createAnAccount, styles.loginLayout]}
@@ -66,6 +64,10 @@ const styles = StyleSheet.create({
   frameLayout: {
     height: 1,
     borderTopWidth: 1,
+  },
+  animationStyle: {
+    top: "19.47%",
+    left: "4.11%",
   },
   frameBorder: {
     borderColor: Color.lightPrimaryKeyBackground,
@@ -98,14 +100,14 @@ const styles = StyleSheet.create({
   },
   aSecureWay: {
     marginLeft: -136,
-    top: hp("16%"),
+    top: hp("18%"),
     fontSize: FontSize.size_5xl,
     fontFamily: FontFamily.dMSansBold,
     width: wp("100%"),
     textAlign: "left",
     fontWeight: "700",
     color: Color.lightPrimaryKeyBackground,
-    left: "50%",
+    left: "58%",
     position: "absolute",
   },
   frameChild: {
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     top: "50%",
     marginTop: -10.5,
+    paddingLeft: 40,
   },
   createAnAccount: {
     top: hp("88%"),
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
   login1: {
     marginLeft: -19,
     color: Color.colorDarkslateblue_200,
+    paddingLeft: 20,
   },
   login: {
     top: hp("80%"),

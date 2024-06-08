@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   scanning2: {
-    color: Color.colorDarkslateblue_200,
+    
   },
   text: {
     color: Color.lightText,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   scanning1: {
     top: 134,
     left: 130,
-    fontSize: FontSize.size_xl,
+    
     fontWeight: "800",
     fontFamily: FontFamily.interExtraBold,
   },
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     left: 99,
     fontSize: FontSize.size_base,
     fontFamily: FontFamily.interRegular,
-    color: Color.lightText,
+    
   },
   scanning: {
     borderRadius: Border.br_4xs,

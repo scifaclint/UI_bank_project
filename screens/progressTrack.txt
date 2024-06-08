@@ -1,0 +1,31 @@
+modal for "forget password " > reset link sent to 
+your email > ok to close modal 
+
+
+/// 
+modal for "transfer page main" > confirm transaction  
+get user name , confirm transaction button to close modal   
+
+add bottom bar 
+// 
+
+//
+"Login Screen"
+reposition layout 
+
+//
+
+//
+"Home Screen"
+ make it simple >> discus with group 
+//
+
+"cameraView"
+
+camera done 
+implement recording logic {
+    record video of face for some seconds 
+
+    add a modal where there should be an error 
+}
+animation 

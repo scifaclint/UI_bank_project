@@ -5,9 +5,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-function AppBottom({ style, text,onPress }) {
+import { color } from "react-native-elements/dist/helpers";
+function AppBottom({
+  styled,
+  text,
+  onPress,
+}) {
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, styled]}>
       <TouchableOpacity
         // scan logic would be implemented
         style={styles.bottomStyle}
@@ -36,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: FontSize.size_xl,
     position: "absolute",
-    left: wp("20%"),
+    left: wp("15%"),
     top: 5,
   },
 });

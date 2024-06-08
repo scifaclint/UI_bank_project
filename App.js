@@ -4,10 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import Home from "./screens/Home";
 import Cover from "./screens/Cover";
-import Cover1 from "./screens/Cover1";
+import Cover1 from "./screens/alternte_cover";
 import Cover2 from "./screens/Cover2";
 import WelcomeBack from "./screens/WelcomeBack";
-import SplashScreen from "./screens/SplashScreen";
+import SplashScreen from "./screens/LoginScreen";
 import FaceIdAuthen from "./screens/FaceIdAuthen";
 import Scanning from "./screens/Scanning";
 import Verified from "./screens/Verified";
@@ -17,7 +17,7 @@ import CreateAnAccount from "./screens/CreateAnAccount";
 import RecentNotification from "./components/RecentNotification";
 import AnimationFaceId from "./components/AnimationFaceId";
 import Success from "./modals/Success";
-import CameraComponent from "./components/camera";
+import CameraScreen from "./components/CameraView";
 // this is CreateAnAccount
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -30,6 +30,9 @@ import {
   Platform,
 } from "react-native";
 import Failed from "./modals/Failed";
+import ReviewPayment from "./modals/ReviewPayment";
+import LoginScreen from "./screens/LoginScreen"
+import ForgotPassword from "./modals/ForgotPassword";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -55,6 +58,6 @@ const App = () => {
     return null;
   }
 
-  return <FaceIdAuthen></FaceIdAuthen>;
+  return <CameraScreen></CameraScreen>;
 };
 export default App;
