@@ -42,7 +42,6 @@ const TransferMainPage = () => {
       <TouchableOpacity style={styles.viewAllWrapper}>
         <Text style={[styles.viewAll, styles.viewAllTypo]}>View All</Text>
       </TouchableOpacity>
-      <Text style={styles.transferPayment}>{`Transfer & Payment`}</Text>
       <View style={styles.rectangleParent}>
         <View style={[styles.frameChild, styles.frameLayout]} />
         <View style={[styles.frameItem, styles.frameLayout]} />
@@ -92,7 +91,15 @@ const TransferMainPage = () => {
         <AppBottom text="Proceed" onPress={handPressed}></AppBottom>
       </View>
       <View style={styles.backArrow}>
-        <BackArrow color={Color.colorDarkslateblue_200} />
+        <Text style={styles.transferPayment}>{`Transfer & Payment`}</Text>
+        <View
+          style={{
+            top: 33,
+            left: "5%",
+          }}
+        >
+          <BackArrow color={Color.lightPrimaryKeyBackground} />
+        </View>
       </View>
     </View>
   );
@@ -106,8 +113,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   backArrow: {
-    top: 59,
-    left: "5%",
+    top: 0,
+    height: 70,
+    backgroundColor: Color.colorDarkslateblue_600,
+    width: "100%",
   },
   AppBottom: {
     top: hp("65%"),
@@ -272,14 +281,14 @@ const styles = StyleSheet.create({
   },
   transferPayment: {
     marginLeft: -76.5,
-    top: 59,
     fontSize: FontSize.size_base,
     fontFamily: FontFamily.dMSansBold,
     fontWeight: "700",
     textAlign: "left",
-    color: Color.colorDarkslateblue_400,
+    color: Color.lightPrimaryKeyBackground,
     left: "50%",
     position: "absolute",
+    top: 33,
   },
   frameChild: {
     zIndex: 0,

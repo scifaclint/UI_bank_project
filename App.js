@@ -12,7 +12,6 @@ import FaceIdAuthen from "./screens/FaceIdAuthen";
 import Scanning from "./screens/Scanning";
 import Verified from "./screens/Verified";
 import TransferMainPage from "./screens/TransferMainPage";
-import TranferAuthenticate from "./screens/TranferAuthenticate";
 import CreateAnAccount from "./screens/CreateAnAccount";
 import RecentNotification from "./components/RecentNotification";
 import AnimationFaceId from "./components/AnimationFaceId";
@@ -31,8 +30,10 @@ import {
 } from "react-native";
 import Failed from "./modals/Failed";
 import ReviewPayment from "./modals/ReviewPayment";
-import LoginScreen from "./screens/LoginScreen"
+import LoginScreen from "./screens/LoginScreen";
 import ForgotPassword from "./modals/ForgotPassword";
+import BackgroundFaceScan from "./modals/BackgroundFaceScan";
+import { CameraView } from "expo-camera";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -58,6 +59,6 @@ const App = () => {
     return null;
   }
 
-  return <CameraScreen></CameraScreen>;
+  return <LoginScreen></LoginScreen>;
 };
 export default App;

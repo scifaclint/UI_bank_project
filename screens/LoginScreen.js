@@ -16,10 +16,11 @@ import {
 } from "react-native-responsive-screen";
 import { CheckBox } from "react-native-elements";
 import ForgotPassword from "../modals/ForgotPassword";
+import BackgroundFaceScan from "../modals/BackgroundFaceScan";
 
 const SplashScreen = () => {
   // checkbox logic also not implemented yet
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState("false");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,9 +36,23 @@ const SplashScreen = () => {
 
   const [onclose, setOnclose] = useState(false);
 
-  const getItClosed = () =>{
-    setvisible(false)
-  }
+  const getItClosed = () => {
+    setvisible(false);
+  };
+
+  // handle face scanning and detection background
+  const [faceScanVisible, setFaceScanVisible] = useState(false);
+  const handleLoginButton = () => {
+    /*
+    implement firebase logic here
+    to authorise user ones everything set 
+    then continue with face scan 
+    */
+    setFaceScanVisible(true);
+  };
+  const closeFaceScan = () => {
+    setFaceScanVisible(false);
+  };
 
   return (
     <>
@@ -66,29 +81,31 @@ Don’t have an account? `}</Text>
               </View>
             </Text>
           </Text>
-
-          <View style={[styles.phone, styles.phoneLayout]} />
-
           <TextInput
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             placeholder="Enter
-            Phone
-            Number"
-            style={[styles.enterPhoneNumber, styles.loginTypo]}
+            Your
+            Email"
+            style={[
+              styles.enterPhoneNumber,
+              styles.loginTypo,
+              styles.phone,
+              styles.phoneLayout,
+            ]}
           ></TextInput>
-          <Image
-            style={styles.flagsIcon}
-            contentFit="cover"
-            source={require("../assets/flags.png")}
-          />
-          <View style={[styles.password, styles.tickBoxBorder]} />
+
           <TextInput
             placeholder="Enter Your password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            style={[styles.password1, styles.password1Typo]}
+            style={[
+              styles.password1,
+              styles.password1Typo,
+              styles.password,
+              styles.tickBoxBorder,
+            ]}
           ></TextInput>
 
           <Image
@@ -138,7 +155,7 @@ Don’t have an account? `}</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={handleLogin}
+            onPress={handleLoginButton}
             // container styles
             // onpress or button logic not implemented yet
             style={styles.loginContainer}
@@ -157,9 +174,11 @@ Don’t have an account? `}</Text>
               </Text>
             </TouchableOpacity>
           </View>
-          <ForgotPassword 
-          onClose={getItClosed}
-          isVisible={visible} />
+          <ForgotPassword onClose={getItClosed} isVisible={visible} />
+          <BackgroundFaceScan
+            isVisible={faceScanVisible}
+            onClose={closeFaceScan}
+          />
         </View>
       </ScrollView>
     </>
@@ -265,6 +284,7 @@ const styles = StyleSheet.create({
     width: "75%",
     fontFamily: FontFamily.interMedium,
     fontWeight: "500",
+    padding:10
   },
   flagsIcon: {
     top: "42%",
@@ -288,6 +308,7 @@ const styles = StyleSheet.create({
     width: "90%",
     left: "20%",
     fontFamily: FontFamily.interRegular,
+    padding:10
   },
   // viewHidePass: {
   //   top: "50%",

@@ -22,10 +22,21 @@ function ForgotPassword({ isVisible, onClose }) {
 
   const handleReset = () => {
     // implement link sending logic here
-    Alert.alert("Reset Link sent", `A reset link sent to ${email}`),
-      [{ text: "Ok", onPress: () => Alert.dismiss() }];
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    onClose();
+    if (pattern.test(email)) {
+      Alert.alert("Reset Link sent", `A reset link sent to ${email}`),
+        [{ text: "Ok", onPress: () => Alert.dismiss() }];
+      onClose();
+    } else {
+      Alert.alert("Invalid Email", "Please enter a valid email address"),
+        [
+          {
+            text: "Ok",
+            onPress: () => Alert.dismiss(),
+          },
+        ];
+    }
   };
 
   return (

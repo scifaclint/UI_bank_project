@@ -7,6 +7,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import Modal from "react-native-modal";
 
 const dataTesting = {
   //testing data
@@ -15,174 +16,184 @@ const dataTesting = {
   Charges: "GHS 0.50",
   Total: "GHS 100.50",
 };
-function ReviewPayment(props) {
+function ReviewPayment({ isVisible = true, onClose }) {
   const [receiverName, setReceivername] = useState("Yaw Acheampong Clinton");
   return (
     <>
       <View style={styles.container}>
         <View style={styles.reviewPayment}>
-          <BackArrow
-            color={Color.colorDarkslateblue_400}
-            //gotta implement onPress action here
-          />
-          <Text style={styles.textStyle}>Review and Pay </Text>
-        </View>
-        <View style={styles.confirmSendPayment}>
-          <Text style={styles.transferstyle}>confirm Transfer Details</Text>
-          <Text style={styles.sendingtextstyle}>
-            Sending money to {dataTesting.Recipient}
-          </Text>
-        </View>
-        <View style={styles.transferdetails}>
-          <Text style={styles.transdettext}> Transfer Details</Text>
-          <View style={styles.inline} />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            top: "40%",
-            left: "5%",
-          }}
-          // container sending payment details
-          // get data and render here
-          // recipient
-        >
-          <Text
-            style={{
-              width: 100,
-            }}
-          >
-            {" "}
-            Recipient
-          </Text>
-          <Text
-            style={{
-              fontWeight: "bold",
-              paddingLeft: 90,
-            }}
-          >
-            Get Recipient
+          <View style={[styles.arrowAndText,styles.arrowOnly]}>
+            <BackArrow
+              color={Color.lightPrimaryKeyBackground}
+              //gotta implement onPress action here
+            />
+          </View>
+          <Text style={[styles.textStyle, styles.arrowAndText]}>
+            Review and Pay{" "}
           </Text>
         </View>
         <View
           style={{
-            flexDirection: "row",
-            top: "40%",
-            left: "5%",
+            height: hp("80%"),
           }}
-          // container sending payment details
-          // get data and render here
-          // amount
         >
-          <Text
+          <View style={styles.confirmSendPayment}>
+            <Text style={styles.transferstyle}>confirm Transfer Details</Text>
+            <Text style={styles.sendingtextstyle}>
+              Sending money to {dataTesting.Recipient}
+            </Text>
+          </View>
+          <View style={styles.transferdetails}>
+            <Text style={styles.transdettext}> Transfer Details</Text>
+            <View style={styles.inline} />
+          </View>
+          <View
             style={{
-              width: 100,
+              flexDirection: "row",
+              top: "40%",
+              left: "5%",
             }}
+            // container sending payment details
+            // get data and render here
+            // recipient
           >
-            {" "}
-            Amount
-          </Text>
-          <Text
+            <Text
+              style={{
+                width: 100,
+              }}
+            >
+              {" "}
+              Recipient
+            </Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                paddingLeft: 90,
+              }}
+            >
+              Get Recipient
+            </Text>
+          </View>
+          <View
             style={{
-              textAlign: "right",
-              fontWeight: "bold",
-              paddingLeft: 90,
+              flexDirection: "row",
+              top: "40%",
+              left: "5%",
             }}
+            // container sending payment details
+            // get data and render here
+            // amount
           >
-            Get amount
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            top: "40%",
-            left: "5%",
-          }}
-          // container sending payment details
-          // get data and render here
-          // tax
-        >
-          <Text
+            <Text
+              style={{
+                width: 100,
+              }}
+            >
+              {" "}
+              Amount
+            </Text>
+            <Text
+              style={{
+                textAlign: "right",
+                fontWeight: "bold",
+                paddingLeft: 90,
+              }}
+            >
+              Get amount
+            </Text>
+          </View>
+          <View
             style={{
-              width: 100,
+              flexDirection: "row",
+              top: "40%",
+              left: "5%",
             }}
+            // container sending payment details
+            // get data and render here
+            // tax
           >
-            {" "}
-            Tax
-          </Text>
-          <Text
+            <Text
+              style={{
+                width: 100,
+              }}
+            >
+              {" "}
+              Tax
+            </Text>
+            <Text
+              style={{
+                textAlign: "right",
+                fontWeight: "bold",
+                paddingLeft: 90,
+              }}
+            >
+              Get Tax
+            </Text>
+          </View>
+          <View
             style={{
-              textAlign: "right",
-              fontWeight: "bold",
-              paddingLeft: 90,
+              flexDirection: "row",
+              top: "40%",
+              left: "5%",
             }}
+            // container sending payment details
+            // get data and render here
+            // total
           >
-            Get Tax
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            top: "40%",
-            left: "5%",
-          }}
-          // container sending payment details
-          // get data and render here
-          // total
-        >
-          <Text
-            style={{
-              width: 100,
-              fontWeight: "bold",
-              top: 30,
-            }}
+            <Text
+              style={{
+                width: 100,
+                fontWeight: "bold",
+                top: 30,
+              }}
+            >
+              {" "}
+              Total
+            </Text>
+            <Text
+              style={{
+                textAlign: "right",
+                fontWeight: "bold",
+                paddingLeft: 90,
+                fontWeight: "bold",
+                top: 30,
+              }}
+            >
+              Get total
+            </Text>
+          </View>
+          <View
+            // balance amount remaining if proceeded
+            style={styles.balanceContainer}
           >
-            {" "}
-            Total
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              fontWeight: "bold",
-              paddingLeft: 90,
-              fontWeight: "bold",
-              top: 30,
-            }}
+            <Text style={styles.containtextbalance}>
+              Current Balance {dataTesting.Amount}{" "}
+            </Text>
+          </View>
+          <View
+            // amount remaining if proceeded
+            style={styles.remainbalance}
           >
-            Get total
-          </Text>
-        </View>
-        <View
-          // balance amount remaining if proceeded
-          style={styles.balanceContainer}
-        >
-          <Text style={styles.containtextbalance}>
-            Current Balance {dataTesting.Amount}{" "}
-          </Text>
-        </View>
-        <View
-          // amount remaining if proceeded
-          style={styles.remainbalance}
-        >
-          <Text style={styles.textstyleremainconfirm}>
-            GHS 30.00 left if you complete this payment.
-          </Text>
-        </View>
-        <View
-          style={styles.paybutton}
-          // button pay
-        >
-          <TouchableOpacity style={styles.bottomStyle}>
-            <Text style={styles.bottomText}>Pay</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          // cancel button
-          style={styles.cancelbutton}
-        >
-          <TouchableOpacity style={styles.stylecancelellipse}>
-            <Text style={styles.canceltext}>Close</Text>
-          </TouchableOpacity>
+            <Text style={styles.textstyleremainconfirm}>
+              GHS 30.00 left if you complete this payment.
+            </Text>
+          </View>
+          <View
+            style={styles.paybutton}
+            // button pay
+          >
+            <TouchableOpacity style={styles.bottomStyle}>
+              <Text style={styles.bottomText}>Pay</Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            // cancel button
+            style={styles.cancelbutton}
+          >
+            <TouchableOpacity style={styles.stylecancelellipse}>
+              <Text style={styles.canceltext}>Close</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </>
@@ -195,9 +206,17 @@ const styles = StyleSheet.create({
     width: wp("100%"),
     justifyContent: "flex-start",
   },
+  arrowAndText: {
+    top: 33,
+  },
+  arrowOnly:{
+    left:"3%"
+  },
   reviewPayment: {
-    top: "7%",
-    left: "5%",
+    top: 0,
+    height: 70,
+    position: "relative",
+    backgroundColor: Color.colorDarkslateblue_600,
   },
   containtextbalance: {
     top: 15,
@@ -236,7 +255,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.dMSansBold,
     fontWeight: "700",
     textAlign: "left",
-    color: Color.colorDarkslateblue_400,
+    color: Color.lightPrimaryKeyBackground,
     left: "50%",
     position: "absolute",
   },

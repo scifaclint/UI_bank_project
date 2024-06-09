@@ -2,6 +2,7 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Color, FontSize, FontFamily, Border } from "../GlobalStyles";
+import LottieView from "lottie-react-native";
 import {
   Button,
   StyleSheet,
@@ -10,7 +11,6 @@ import {
   View,
   Alert,
 } from "react-native";
-import LottieView from "lottie-react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -52,7 +52,7 @@ function CameraScreen(props) {
         <Text style={styles.textStyle}>Hold the phone still. Rotate your</Text>
         <Text style={styles.goslow}> Head. Go slow </Text>
         <Text style={[styles.captureall, styles.defaultTextstyle]}>
-          Capture all angles of your face{" "}
+         Position your face in the circle
         </Text>
       </View>
 
@@ -69,6 +69,23 @@ function CameraScreen(props) {
           <Text style={styles.textCancel}>Cancel</Text>
         </TouchableOpacity>
       </View>
+      <View
+        // animation
+        style={{
+          flex: 1,
+          top: hp("15%"),
+          position: "absolute",
+          margin: 0,
+          marginLeft: -20,
+        }}
+      >
+        <LottieView
+          source={require("../data/roundSpining.json")}
+          autoPlay
+          loop
+          style={styles.lottie}
+        ></LottieView>
+      </View>
     </View>
   );
 }
@@ -81,9 +98,11 @@ const styles = StyleSheet.create({
     backgroundColor: Color.lightPrimaryKeyBackground,
   },
   cameraContainer: {
-    top: hp("25%"),
+    top: hp("30%"),
     justifyContent: "center",
     alignItems: "center",
+    position:"absolute",
+    left:"20%"
   },
   camera: {
     flex: 1,
@@ -139,7 +158,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonCancel: {
-    top: hp("50%"),
+    top: hp("80%"),
     left: wp("5%"),
   },
   textCancel: {
@@ -147,6 +166,10 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xl,
     fontFamily: FontFamily.poppinsLight,
     fontWeight: "bold",
+  },
+  lottie: {
+    width: 450,
+    height: 490,
   },
 });
 
