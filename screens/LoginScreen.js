@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Image } from "expo-image";
+import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -17,19 +18,14 @@ import {
 import { CheckBox } from "react-native-elements";
 import ForgotPassword from "../modals/ForgotPassword";
 import BackgroundFaceScan from "../modals/BackgroundFaceScan";
+import Success from "../modals/Success";
+import Failed from "../modals/Failed";
 
 const SplashScreen = () => {
   // checkbox logic also not implemented yet
   const [rememberMe, setRememberMe] = useState("false");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
-    // Handle login logic using phoneNumber and password
-    //not implemented yet (logic )
-    console.log("Phone Number:", phoneNumber);
-    console.log("Password:", password);
-  };
 
   // handle forgot password
   const [visible, setvisible] = useState(false);
@@ -40,23 +36,53 @@ const SplashScreen = () => {
     setvisible(false);
   };
 
-  // handle face scanning and detection background
+  // handle face scanning and detection background success and failed
   const [faceScanVisible, setFaceScanVisible] = useState(false);
+  const [successVerified, setSuccessVerified] = useState(false);
+  const [failedVer, setfailVer] = useState(false);
+
+  // stop scan
+  const closeFaceScan = () => {
+    setFaceScanVisible(false);
+  };
+  // sleep here
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+  // start scan
+  const startScan = async () => {
+    setFaceScanVisible(true);
+    await sleep(7000);
+    setFaceScanVisible(false);
+    succedded();
+  };
+
+  // success
+  const succedded = () => {
+    setSuccessVerified(true);
+  };
+
+  // failed
+  const faileded = () => {
+    setfailVer(true);
+  };
   const handleLoginButton = () => {
     /*
     implement firebase logic here
     to authorise user ones everything set 
     then continue with face scan 
     */
-    setFaceScanVisible(true);
-  };
-  const closeFaceScan = () => {
-    setFaceScanVisible(false);
+    if (!faceScanVisible) {
+      startScan();
+    }
   };
 
   return (
     <>
       <ScrollView>
+        <StatusBar
+        backgroundColor = {Color.colorDarkslateblue_200}
+        />
         <View style={styles.splashScreen}>
           <Image
             style={[styles.splashScreenChild, styles.phonePosition]}
@@ -179,6 +205,13 @@ Don’t have an account? `}</Text>
             isVisible={faceScanVisible}
             onClose={closeFaceScan}
           />
+          <Success
+          // onclose should navigate to dashboard 
+          // 
+            isVisible={successVerified}
+            onClose={() => setSuccessVerified(false)}
+          />
+          <Failed isVisible={failedVer} onClose={() => setfailVer(false)} />
         </View>
       </ScrollView>
     </>
@@ -284,7 +317,7 @@ const styles = StyleSheet.create({
     width: "75%",
     fontFamily: FontFamily.interMedium,
     fontWeight: "500",
-    padding:10
+    padding: 10,
   },
   flagsIcon: {
     top: "42%",
@@ -308,7 +341,7 @@ const styles = StyleSheet.create({
     width: "90%",
     left: "20%",
     fontFamily: FontFamily.interRegular,
-    padding:10
+    padding: 10,
   },
   // viewHidePass: {
   //   top: "50%",

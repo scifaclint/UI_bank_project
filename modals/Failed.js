@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { FontFamily, FontSize, Color, Border } from "../GlobalStyles";
 import {
   widthPercentageToDP as wp,
@@ -8,48 +8,93 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import AppBottom from "../components/AppBottom";
+import Modal from "react-native-modal";
+import { StatusBar } from "expo-status-bar";
 
-function Failed({ style }) {
+function Failed({ style, isVisible , onClose }) {
   const [hasPlayed, setHasPlayed] = useState(false);
   return (
     <>
-      <View style={[styles.mainContainer, style]}>
-        <AppBottom
-          // implement logic via
-          // close the model when pressed
-          onPress={console.log("pressed")}
-          text={"Retry"}
-          style={styles.Bottom}
-        />
-        <LottieView
-          source={require("../data/failed.json")}
-          autoPlay={!hasPlayed} // Only autoPlay if animation hasn't played
-          progress={hasPlayed ? 1 : 0}
-          loop={false}
-          style={styles.lottie}
-        />
-      </View>
+      <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
+      <Modal
+        animationIn={"fadeIn"}
+        isVisible={isVisible}
+        style={{
+          margin: 0,
+          backgroundColor: Color.lightPrimaryKeyBackground,
+          height: hp("100%"),
+        }}
+      >
+        <View style={[styles.mainContainer, style]}>
+          <Text
+            style={{
+              color: Color.colorDarkslateblue_200,
+              top: -hp("38%"),
+              textAlign: "center",
+              fontSize: FontSize.size_5xl,
+              fontFamily: FontFamily.interExtraBold,
+            }}
+          >
+            Failed
+          </Text>
+          <View
+            style={{
+              top: -hp("30%"),
+            }}
+          >
+            <LottieView
+              source={require("../data/failed.json")}
+              autoPlay={!hasPlayed} // Only autoPlay if animation hasn't played
+              progress={hasPlayed ? 1 : 0}
+              loop={false}
+              style={styles.lottie}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={onClose}
+              style={{
+                backgroundColor: Color.colorDarkslateblue_200,
+                height: 50,
+                width: 150,
+                position: "absolute",
+                top: -hp("30%"),
+                left: -wp("20%"),
+                borderRadius: Border.br_xl,
+              }}
+            >
+              <Text
+                style={{
+                  color: Color.lightPrimaryKeyBackground,
+                  top: 10,
+                  textAlign: "center",
+                  fontSize: FontSize.size_xl,
+                  fontFamily: FontFamily.interMedium,
+                }}
+              >
+                Retry
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: "#add8e6",
+    backgroundColor: Color.lightPrimaryKeyBackground,
     alignItems: "center",
     justifyContent: "center",
     width: wp("100%"),
-    height: hp("60%"),
-    top: hp("20%"),
+    height: hp("100%"),
+    top: hp("30%"),
+    flex: 1,
   },
   lottie: {
-    width: wp("50%"),
-    height: wp("50%"),
-    top: -hp("20%"),
-  },
-  Bottom: {
-    top: hp("50%"),
-    marginLeft: -wp("50%"),
+    width: 300,
+    height: 300,
   },
 });
 

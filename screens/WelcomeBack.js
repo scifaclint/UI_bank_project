@@ -2,10 +2,11 @@ import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
-
+import { StatusBar } from "expo-status-bar";
 const WelcomeBack = () => {
   return (
     <View style={styles.welcomeBack}>
+      <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
       <Image
         style={styles.welcomeBackChild}
         contentFit="cover"

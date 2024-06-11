@@ -7,12 +7,14 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import AnimationFaceId from "../components/AnimationFaceId";
+import { StatusBar } from "expo-status-bar";
 
 
 
 const FaceIdAuthen = () => {
   return (
     <View style={styles.faceIdAuthen}>
+      <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
       <Text
         style={[styles.completeEventBy, styles.scanMyFaceTypo]}
       >{`Complete event  by scanning your face`}</Text>
@@ -22,14 +24,12 @@ const FaceIdAuthen = () => {
         source={require("../assets/ellipse-2.png")}
       />
       <TouchableOpacity
-      // scan logic would be implemented
-      style={styles.faceIdAuthenItem}>
+        // scan logic would be implemented
+        style={styles.faceIdAuthenItem}
+      >
         <Text style={styles.scanFaceText}>Scan</Text>
       </TouchableOpacity>
-      <AnimationFaceId
-        style={styles.faceIcon}
-       
-      />
+      <AnimationFaceId style={styles.faceIcon} />
     </View>
   );
 };

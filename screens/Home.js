@@ -7,14 +7,16 @@ import { Image } from "expo-image";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import RecentNotification from "../components/RecentNotification";
+import { StatusBar } from "expo-status-bar";
 
 const Home = () => {
   return (
     <View style={styles.home}>
+      <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
       <Image
         style={[styles.homeChild, styles.homeChildPosition]}
         contentFit="cover"
-        source={require("../assets/ellipse-12.png")}
+        source={require("../assets/ellipse-11.png")}
         // replace source with user image
       />
       <Text style={[styles.hiDavid, styles.hiDavidTypo]}>Hi,Username</Text>
@@ -37,10 +39,6 @@ const Home = () => {
         style={styles.ellipseParent}
         // ellipse account balance container
       >
-        <Image
-          contentFit="cover"
-          source={require("../assets/ellipse-13.png")}
-        />
         <Text style={[styles.availableBalance, styles.textPosition]}>
           Available balance
         </Text>
@@ -229,8 +227,8 @@ const Home = () => {
         </View>
       </View>
       <View
-        
-        /*
+
+      /*
         replace view with custom component
         position it well
         customize recent notification component 

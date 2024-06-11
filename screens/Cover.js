@@ -3,6 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { StatusBar } from "expo-status-bar";
 import {
   Text,
   StyleSheet,
@@ -29,6 +30,7 @@ implement on tap login and create account logic
 const Cover = () => {
   return (
     <View style={styles.cover1}>
+      <StatusBar/>
       <Text style={styles.aSecureWay}>A Secure Way to Bank</Text>
       <View style={styles.lineParent}>
         <View style={[styles.frameChild, styles.frameLayout]} />

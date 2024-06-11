@@ -4,19 +4,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import Home from "./screens/Home";
 import Cover from "./screens/Cover";
-import Cover1 from "./screens/alternte_cover";
-import Cover2 from "./screens/Cover2";
 import WelcomeBack from "./screens/WelcomeBack";
 import SplashScreen from "./screens/LoginScreen";
 import FaceIdAuthen from "./screens/FaceIdAuthen";
-import Scanning from "./screens/Scanning";
-import Verified from "./screens/Verified";
 import TransferMainPage from "./screens/TransferMainPage";
 import CreateAnAccount from "./screens/CreateAnAccount";
 import RecentNotification from "./components/RecentNotification";
 import AnimationFaceId from "./components/AnimationFaceId";
 import Success from "./modals/Success";
 import CameraScreen from "./components/CameraView";
+import CreateAccountForms from "./screens/CreateAccountForms";
+import DashBoard from "./screens/DashBoard";
 // this is CreateAnAccount
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -59,6 +57,6 @@ const App = () => {
     return null;
   }
 
-  return <LoginScreen></LoginScreen>;
+  return <DashBoard></DashBoard>;
 };
 export default App;

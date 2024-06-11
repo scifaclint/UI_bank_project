@@ -7,8 +7,9 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Modal from "react-native-modal";
-
+import Success from "./Success";
+import Failed from "./Failed";
+import BackgroundFaceScan from "./BackgroundFaceScan";
 const dataTesting = {
   //testing data
   Recipient: "Yaw Acheampong",
@@ -18,11 +19,53 @@ const dataTesting = {
 };
 function ReviewPayment({ isVisible = true, onClose }) {
   const [receiverName, setReceivername] = useState("Yaw Acheampong Clinton");
+  const [faceScanVisible, setFaceScanVisible] = useState(false);
+  const [successVerified, setSuccessVerified] = useState(false);
+  const [failedVer, setfailVer] = useState(false);
+
+  // handle face scanning and detection background success and failed
+
+  // stop scan
+  const closeFaceScan = () => {
+    setFaceScanVisible(false);
+  };
+  // sleep here
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+  // start scan
+  const startScan = async () => {
+    setFaceScanVisible(true);
+    await sleep(7000);
+    setFaceScanVisible(false);
+    succedded();
+  };
+
+  // success
+  const succedded = () => {
+    setSuccessVerified(true);
+  };
+
+  // failed
+  const faileded = () => {
+    setfailVer(true);
+  };
+  const handlePay = () => {
+    /*
+    implement firebase logic here
+    to authorise user ones everything set 
+    then continue with face scan 
+    */
+    if (!faceScanVisible) {
+      startScan();
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.reviewPayment}>
-          <View style={[styles.arrowAndText,styles.arrowOnly]}>
+          <View style={[styles.arrowAndText, styles.arrowOnly]}>
             <BackArrow
               color={Color.lightPrimaryKeyBackground}
               //gotta implement onPress action here
@@ -182,7 +225,7 @@ function ReviewPayment({ isVisible = true, onClose }) {
             style={styles.paybutton}
             // button pay
           >
-            <TouchableOpacity style={styles.bottomStyle}>
+            <TouchableOpacity onPress={handlePay} style={styles.bottomStyle}>
               <Text style={styles.bottomText}>Pay</Text>
             </TouchableOpacity>
           </View>
@@ -195,6 +238,21 @@ function ReviewPayment({ isVisible = true, onClose }) {
             </TouchableOpacity>
           </View>
         </View>
+        <Success
+          // proper logic later
+          isVisible={successVerified}
+          onClose={() => setSuccessVerified(false)}
+        />
+        <Failed
+          // proper logic later
+          isVisible={failedVer}
+          onClose={() => setfailVer(false)}
+        />
+        <BackgroundFaceScan
+          isVisible={faceScanVisible}
+          // would implement proper logic later
+          onClose={() => setFaceScanVisible(false)}
+        />
       </View>
     </>
   );
@@ -209,8 +267,8 @@ const styles = StyleSheet.create({
   arrowAndText: {
     top: 33,
   },
-  arrowOnly:{
-    left:"3%"
+  arrowOnly: {
+    left: "3%",
   },
   reviewPayment: {
     top: 0,

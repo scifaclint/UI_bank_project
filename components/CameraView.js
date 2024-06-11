@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Color, FontSize, FontFamily, Border } from "../GlobalStyles";
 import LottieView from "lottie-react-native";
+import { StatusBar } from "expo-status-bar";
 import {
   Button,
   StyleSheet,
@@ -42,6 +43,7 @@ function CameraScreen(props) {
       // main containe
       style={styles.container}
     >
+      <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
       <View style={styles.displayText}>
         <FontAwesome5
           name="unlock-alt"
@@ -52,7 +54,7 @@ function CameraScreen(props) {
         <Text style={styles.textStyle}>Hold the phone still. Rotate your</Text>
         <Text style={styles.goslow}> Head. Go slow </Text>
         <Text style={[styles.captureall, styles.defaultTextstyle]}>
-         Position your face in the circle
+          Position your face in the circle
         </Text>
       </View>
 
@@ -101,8 +103,8 @@ const styles = StyleSheet.create({
     top: hp("30%"),
     justifyContent: "center",
     alignItems: "center",
-    position:"absolute",
-    left:"20%"
+    position: "absolute",
+    left: "20%",
   },
   camera: {
     flex: 1,
