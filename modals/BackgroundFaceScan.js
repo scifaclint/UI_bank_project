@@ -12,6 +12,8 @@ import BackgroundCamera from "../other_screens/BackgroundCamera";
 import AppBottom from "../components/AppBottom";
 
 function BackgroundFaceScan({ isVisible, onClose }) {
+
+  // implement some logic to close cameraview ones not needed
   return (
     <>
       <StatusBar style="auto" backgroundColor={Color.colorDarkslateblue_200} />
@@ -47,8 +49,7 @@ function BackgroundFaceScan({ isVisible, onClose }) {
             {
               //back camera here
               /*
-              the camera has been shifted off the camera to 
-              work seemlessly 
+              
               😂😂😂🤣🤣🤣🤣🤣
               */
             }

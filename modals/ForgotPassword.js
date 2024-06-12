@@ -25,7 +25,10 @@ function ForgotPassword({ isVisible, onClose }) {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (pattern.test(email)) {
-      Alert.alert("Reset Link sent", `A reset link sent to ${email}`),
+      Alert.alert(
+        "Reset Link sent",
+        `Password reset link sent to ${email}. Check your email`
+      ),
         [{ text: "Ok", onPress: () => Alert.dismiss() }];
       onClose();
     } else {

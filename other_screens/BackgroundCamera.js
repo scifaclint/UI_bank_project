@@ -31,7 +31,7 @@ function BackgroundCamera(props) {
     >
       <View style={styles.cameraContainer}>
         <View style={styles.cameraWrapper}>
-          <CameraView style={styles.camera} facing={facing}></CameraView>
+          <CameraView  style={styles.camera} facing={facing}></CameraView>
         </View>
       </View>
     </View>

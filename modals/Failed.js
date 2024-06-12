@@ -5,13 +5,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import AppBottom from "../components/AppBottom";
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
 
-function Failed({ style, isVisible , onClose }) {
+function Failed({ style, isVisible , onClose,messagebox }) {
   const [hasPlayed, setHasPlayed] = useState(false);
   return (
     <>
@@ -31,11 +29,11 @@ function Failed({ style, isVisible , onClose }) {
               color: Color.colorDarkslateblue_200,
               top: -hp("38%"),
               textAlign: "center",
-              fontSize: FontSize.size_5xl,
+              fontSize: FontSize.size_xl,
               fontFamily: FontFamily.interExtraBold,
             }}
           >
-            Failed
+            {messagebox}
           </Text>
           <View
             style={{

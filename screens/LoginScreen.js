@@ -23,7 +23,7 @@ import Failed from "../modals/Failed";
 
 const SplashScreen = () => {
   // checkbox logic also not implemented yet
-  const [rememberMe, setRememberMe] = useState("false");
+  const [rememberMe, setRememberMe] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,6 +51,7 @@ const SplashScreen = () => {
   };
   // start scan
   const startScan = async () => {
+    // l
     setFaceScanVisible(true);
     await sleep(7000);
     setFaceScanVisible(false);
@@ -80,9 +81,7 @@ const SplashScreen = () => {
   return (
     <>
       <ScrollView>
-        <StatusBar
-        backgroundColor = {Color.colorDarkslateblue_200}
-        />
+        <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
         <View style={styles.splashScreen}>
           <Image
             style={[styles.splashScreenChild, styles.phonePosition]}
@@ -206,12 +205,15 @@ Don’t have an account? `}</Text>
             onClose={closeFaceScan}
           />
           <Success
-          // onclose should navigate to dashboard 
-          // 
+            // onclose should navigate to dashboard
+            //
             isVisible={successVerified}
             onClose={() => setSuccessVerified(false)}
+            messagebox={"Face recognized! You're in"}
           />
-          <Failed isVisible={failedVer} onClose={() => setfailVer(false)} />
+          <Failed 
+          messagebox={"Authentication failed. Please retry again"}
+          isVisible={failedVer} onClose={() => setfailVer(false)} />
         </View>
       </ScrollView>
     </>

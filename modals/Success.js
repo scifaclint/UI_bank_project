@@ -11,7 +11,7 @@ import AppBottom from "../components/AppBottom";
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
 
-function Success({ style, isVisible , onClose }) {
+function Success({ style, isVisible, onClose, messagebox }) {
   const [hasPlayed, setHasPlayed] = useState(false);
   return (
     <>
@@ -31,11 +31,11 @@ function Success({ style, isVisible , onClose }) {
               color: Color.colorDarkslateblue_200,
               top: -hp("38%"),
               textAlign: "center",
-              fontSize: FontSize.size_5xl,
-              fontFamily: FontFamily.interExtraBold,
+              fontSize: FontSize.size_xl,
+              fontFamily: FontFamily.dMSansBold,
             }}
           >
-            Successful
+            {messagebox}
           </Text>
           <View
             style={{

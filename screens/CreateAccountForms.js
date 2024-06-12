@@ -6,6 +6,7 @@ import {
   Platform,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Image } from "expo-image";
 import constants from "expo-constants";
@@ -18,22 +19,6 @@ import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
 import { CheckBox } from "react-native-elements";
 
-/// functions
-const handleSubmit = () => {
-  /*
-    logic implementation to validate email
-    check box state for "true"
-    password length requirement before navigations
-    */
-  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-};
-
-// logout function 
-
-const handleLogout = () => {
-  
-}
-
 //
 const Status_BarHeight =
   Platform.OS === "ios" ? constants.statusBarHeight : StatusBar.currentHeight;
@@ -45,6 +30,37 @@ function CreateAccountForms(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeT, setagreeT] = useState(false);
+
+  /// functions
+  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const trimField = (text) => {
+    return text.trim();
+  };
+  const giveAlert = (title, message) => {
+    Alert.alert(title, message),
+      [{ text: "Ok", onPress: () => Alert.dismiss() }];
+  };
+  const handleSubmit = () => {
+    const data = {};
+    /*
+    logic implementation to validate email
+    check box state for "true"
+    password length requirement before navigations
+    */
+    if ((firstName && lastName) === "") {
+      giveAlert("Validation Error", "Your Name must not be empty");
+    }
+    if (password.length < 4) {
+      giveAlert("Validation Error", "Password must be atleast 4 characters");
+    }
+    if (pattern.test(email)) {
+      giveAlert("Invalid Email", "Please enter a valid email adrress");
+    }
+    if (!agreeT) {
+      giveAlert("Validation Error", "Please accept Terms of Service");
+    }
+
+  };
 
   return (
     <>
@@ -85,14 +101,14 @@ function CreateAccountForms(props) {
         >
           <TextInput
             placeholder="First Name"
-            onChange={firstName}
-            onChangeText={() => setFirstname(firstName)}
+            value={firstName}
+            onChangeText={(text) => setFirstname(text)}
             style={styles.inputLF}
           ></TextInput>
           <TextInput
             placeholder="Last Name"
-            onChange={lastName}
-            onChangeText={() => setLastname(lastName)}
+            value={lastName}
+            onChangeText={(text) => setLastname(text)}
             style={[styles.inputLF, styles.lastN]}
           ></TextInput>
         </View>
@@ -105,21 +121,21 @@ function CreateAccountForms(props) {
           <TextInput
             style={[styles.inputLL]}
             placeholder="Email"
-            onChange={email}
-            onChangeText={() => setEmail(email)}
+            value={email}
+            onChangeText={(text) => setEmail(trimField(text))}
           />
           <TextInput
             style={[styles.inputLL]}
             placeholder="Password"
-            onChange={password}
-            onChangeText={() => setPassword(password)}
+            value={password}
+            onChangeText={(text) => setPassword(trimField(text))}
             secureTextEntry
           />
           <TextInput
             style={[styles.inputLL]}
             placeholder="Confirm Password"
-            onChange={confirmPassword}
-            onChangeText={() => setConfirmPassword(confirmPassword)}
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(trimField(text))}
           />
         </View>
         <View

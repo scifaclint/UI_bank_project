@@ -17,7 +17,6 @@ import {
 } from "react-native-responsive-screen";
 import constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
 import UserDashboard from "../modals/UserDashboard";
 
 const Status_BarHeight =

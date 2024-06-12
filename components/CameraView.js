@@ -4,6 +4,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Color, FontSize, FontFamily, Border } from "../GlobalStyles";
 import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
+import Failed from "../modals/Failed";
+import Success from "../modals/Success";
+
 import {
   Button,
   StyleSheet,
@@ -17,10 +20,44 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
+const messaBoxSuccess = "Great Job! Face ID setup finished";
+
 function CameraScreen(props) {
+  // implementations
+  const [sVisible, setsVisible] = useState(false);
+  const [fvisivle, setfVisible] = useState(false);
   const [facing, setFacing] = useState("back");
   const [permission, requestPermission] = useCameraPermissions();
 
+  const succeded = () => {
+    setsVisible(true);
+  };
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+  const handleScanComplete = async () => {
+    await sleep(7000); // instead of sleep would be respons from backened
+    succeded();
+  };
+  // handle okay button from modal success take user to dashboard
+
+  const handleOkayModal = () => {
+    // alert message , navigate to dashboard
+    // replace onPress inside alert with a function to navigate to dashboard
+    Alert.alert(
+      "Successful",
+      "Your Account was successully created,you will now be directed to your dasboard"
+    ),
+      [{ text: "Ok", onPress: () => Alert.dismiss() }];
+  };
+  // handle failed okay
+  const failCapture = () => {
+    // logic here
+  };
+  // cancel scan
+  const cancelScan = () => {
+    // navigate back to forms create account
+  };
   if (!permission) {
     // Camera permissions are still loading.
     return <View />;
@@ -37,7 +74,7 @@ function CameraScreen(props) {
       </View>
     );
   }
-
+  handleScanComplete();
   return (
     <View
       // main containe
@@ -67,7 +104,7 @@ function CameraScreen(props) {
         /// container button cancel
         style={styles.buttonCancel}
       >
-        <TouchableOpacity onPress={console.log("pressed")}>
+        <TouchableOpacity onPress={cancelScan}>
           <Text style={styles.textCancel}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -88,6 +125,18 @@ function CameraScreen(props) {
           style={styles.lottie}
         ></LottieView>
       </View>
+      <Success
+        messagebox={messaBoxSuccess}
+        isVisible={sVisible}
+        onClose={handleOkayModal}
+      />
+      <Failed
+        isVisible={fvisivle}
+        onClose={failCapture}
+        messagebox={
+          "Face not enrolled. Make sure your face is within the frame"
+        }
+      />
     </View>
   );
 }
