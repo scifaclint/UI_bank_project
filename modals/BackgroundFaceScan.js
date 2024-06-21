@@ -31,8 +31,6 @@ function BackgroundFaceScan({ isVisible, onClose }) {
           style={{
             height: hp("100%"),
             padding: 20,
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
             backgroundColor: "#000000",
           }}
           // main container content
@@ -49,7 +47,6 @@ function BackgroundFaceScan({ isVisible, onClose }) {
             {
               //back camera here
               /*
-              
               😂😂😂🤣🤣🤣🤣🤣
               */
             }

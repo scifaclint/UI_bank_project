@@ -41,4 +41,8 @@ Thumbs.db
 
 # Turtle
 turtle-build/
-  
+
+# Sensitive 
+firebaseConfig.js
+.env
+google-services.json

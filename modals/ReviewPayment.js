@@ -1,8 +1,21 @@
 import React from "react";
-import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  TouchableOpacity,
+  Dimensions,
+  Platform,
+
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BackArrow from "../components/BackArrow";
 import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
 import { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,6 +23,9 @@ import {
 import Success from "./Success";
 import Failed from "./Failed";
 import BackgroundFaceScan from "./BackgroundFaceScan";
+const Status_BarHeight =
+  Platform.OS === "ios" ? Constants.statusBarHeight : StatusBar.currentHeight;
+
 const dataTesting = {
   //testing data
   Recipient: "Yaw Acheampong",
@@ -22,7 +38,7 @@ function ReviewPayment({ isVisible = true, onClose }) {
   const [faceScanVisible, setFaceScanVisible] = useState(false);
   const [successVerified, setSuccessVerified] = useState(false);
   const [failedVer, setfailVer] = useState(false);
-
+  console.log(Status_BarHeight);
   // handle face scanning and detection background success and failed
 
   // stop scan
@@ -63,218 +79,225 @@ function ReviewPayment({ isVisible = true, onClose }) {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.reviewPayment}>
-          <View style={[styles.arrowAndText, styles.arrowOnly]}>
-            <BackArrow
-              color={Color.lightPrimaryKeyBackground}
-              //gotta implement onPress action here
-            />
+      <SafeAreaView>
+        <StatusBar
+          style="auto"
+          backgroundColor={Color.colorDarkslateblue_200}
+        />
+        <View style={styles.container}>
+          <View style={styles.reviewPayment}>
+            <View style={[styles.arrowAndText, styles.arrowOnly]}>
+              <BackArrow
+                color={Color.lightPrimaryKeyBackground}
+                //gotta implement onPress action here
+              />
+            </View>
+            <Text style={[styles.textStyle, styles.arrowAndText]}>
+              Review and Pay{" "}
+            </Text>
           </View>
-          <Text style={[styles.textStyle, styles.arrowAndText]}>
-            Review and Pay{" "}
-          </Text>
+          <View
+            style={{
+              height: hp("80%"),
+            }}
+          >
+            <View style={styles.confirmSendPayment}>
+              <Text style={styles.transferstyle}>confirm Transfer Details</Text>
+              <Text style={styles.sendingtextstyle}>
+                Sending money to {dataTesting.Recipient}
+              </Text>
+            </View>
+            <View style={styles.transferdetails}>
+              <Text style={styles.transdettext}> Transfer Details</Text>
+              <View style={styles.inline} />
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                top: "40%",
+                left: "5%",
+              }}
+              // container sending payment details
+              // get data and render here
+              // recipient
+            >
+              <Text
+                style={{
+                  width: 100,
+                }}
+              >
+                {" "}
+                Recipient
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  paddingLeft: 90,
+                }}
+              >
+                Get Recipient
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                top: "40%",
+                left: "5%",
+              }}
+              // container sending payment details
+              // get data and render here
+              // amount
+            >
+              <Text
+                style={{
+                  width: 100,
+                }}
+              >
+                {" "}
+                Amount
+              </Text>
+              <Text
+                style={{
+                  textAlign: "right",
+                  fontWeight: "bold",
+                  paddingLeft: 90,
+                }}
+              >
+                Get amount
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                top: "40%",
+                left: "5%",
+              }}
+              // container sending payment details
+              // get data and render here
+              // tax
+            >
+              <Text
+                style={{
+                  width: 100,
+                }}
+              >
+                {" "}
+                Tax
+              </Text>
+              <Text
+                style={{
+                  textAlign: "right",
+                  fontWeight: "bold",
+                  paddingLeft: 90,
+                }}
+              >
+                Get Tax
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                top: "40%",
+                left: "5%",
+              }}
+              // container sending payment details
+              // get data and render here
+              // total
+            >
+              <Text
+                style={{
+                  width: 100,
+                  fontWeight: "bold",
+                  top: 30,
+                }}
+              >
+                {" "}
+                Total
+              </Text>
+              <Text
+                style={{
+                  textAlign: "right",
+                  fontWeight: "bold",
+                  paddingLeft: 90,
+                  fontWeight: "bold",
+                  top: 30,
+                }}
+              >
+                Get total
+              </Text>
+            </View>
+            <View
+              // balance amount remaining if proceeded
+              style={styles.balanceContainer}
+            >
+              <Text style={styles.containtextbalance}>
+                Current Balance {dataTesting.Amount}{" "}
+              </Text>
+            </View>
+            <View
+              // amount remaining if proceeded
+              style={styles.remainbalance}
+            >
+              <Text style={styles.textstyleremainconfirm}>
+                GHS 30.00 left if you complete this payment.
+              </Text>
+            </View>
+            <View
+              style={styles.paybutton}
+              // button pay
+            >
+              <TouchableOpacity onPress={handlePay} style={styles.bottomStyle}>
+                <Text style={styles.bottomText}>Pay</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              // cancel button
+              style={styles.cancelbutton}
+            >
+              <TouchableOpacity style={styles.stylecancelellipse}>
+                <Text style={styles.canceltext}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Success
+            // proper logic later
+            isVisible={successVerified}
+            onClose={() => setSuccessVerified(false)}
+          />
+          <Failed
+            // proper logic later
+            isVisible={failedVer}
+            onClose={() => setfailVer(false)}
+          />
+          <BackgroundFaceScan
+            isVisible={faceScanVisible}
+            // would implement proper logic later
+            onClose={() => setFaceScanVisible(false)}
+          />
         </View>
-        <View
-          style={{
-            height: hp("80%"),
-          }}
-        >
-          <View style={styles.confirmSendPayment}>
-            <Text style={styles.transferstyle}>confirm Transfer Details</Text>
-            <Text style={styles.sendingtextstyle}>
-              Sending money to {dataTesting.Recipient}
-            </Text>
-          </View>
-          <View style={styles.transferdetails}>
-            <Text style={styles.transdettext}> Transfer Details</Text>
-            <View style={styles.inline} />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              top: "40%",
-              left: "5%",
-            }}
-            // container sending payment details
-            // get data and render here
-            // recipient
-          >
-            <Text
-              style={{
-                width: 100,
-              }}
-            >
-              {" "}
-              Recipient
-            </Text>
-            <Text
-              style={{
-                fontWeight: "bold",
-                paddingLeft: 90,
-              }}
-            >
-              Get Recipient
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              top: "40%",
-              left: "5%",
-            }}
-            // container sending payment details
-            // get data and render here
-            // amount
-          >
-            <Text
-              style={{
-                width: 100,
-              }}
-            >
-              {" "}
-              Amount
-            </Text>
-            <Text
-              style={{
-                textAlign: "right",
-                fontWeight: "bold",
-                paddingLeft: 90,
-              }}
-            >
-              Get amount
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              top: "40%",
-              left: "5%",
-            }}
-            // container sending payment details
-            // get data and render here
-            // tax
-          >
-            <Text
-              style={{
-                width: 100,
-              }}
-            >
-              {" "}
-              Tax
-            </Text>
-            <Text
-              style={{
-                textAlign: "right",
-                fontWeight: "bold",
-                paddingLeft: 90,
-              }}
-            >
-              Get Tax
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              top: "40%",
-              left: "5%",
-            }}
-            // container sending payment details
-            // get data and render here
-            // total
-          >
-            <Text
-              style={{
-                width: 100,
-                fontWeight: "bold",
-                top: 30,
-              }}
-            >
-              {" "}
-              Total
-            </Text>
-            <Text
-              style={{
-                textAlign: "right",
-                fontWeight: "bold",
-                paddingLeft: 90,
-                fontWeight: "bold",
-                top: 30,
-              }}
-            >
-              Get total
-            </Text>
-          </View>
-          <View
-            // balance amount remaining if proceeded
-            style={styles.balanceContainer}
-          >
-            <Text style={styles.containtextbalance}>
-              Current Balance {dataTesting.Amount}{" "}
-            </Text>
-          </View>
-          <View
-            // amount remaining if proceeded
-            style={styles.remainbalance}
-          >
-            <Text style={styles.textstyleremainconfirm}>
-              GHS 30.00 left if you complete this payment.
-            </Text>
-          </View>
-          <View
-            style={styles.paybutton}
-            // button pay
-          >
-            <TouchableOpacity onPress={handlePay} style={styles.bottomStyle}>
-              <Text style={styles.bottomText}>Pay</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            // cancel button
-            style={styles.cancelbutton}
-          >
-            <TouchableOpacity style={styles.stylecancelellipse}>
-              <Text style={styles.canceltext}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Success
-          // proper logic later
-          isVisible={successVerified}
-          onClose={() => setSuccessVerified(false)}
-        />
-        <Failed
-          // proper logic later
-          isVisible={failedVer}
-          onClose={() => setfailVer(false)}
-        />
-        <BackgroundFaceScan
-          isVisible={faceScanVisible}
-          // would implement proper logic later
-          onClose={() => setFaceScanVisible(false)}
-        />
-      </View>
+      </SafeAreaView>
     </>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: hp("100%"),
+    paddingTop: Constants.statusBarHeight,
     width: wp("100%"),
     justifyContent: "flex-start",
   },
   arrowAndText: {
-    top: 33,
+    top: 20,
   },
   arrowOnly: {
     left: "3%",
   },
   reviewPayment: {
-    top: 0,
+    top:0,
     height: 70,
-    position: "relative",
+    position: "absolute",
     backgroundColor: Color.colorDarkslateblue_600,
+    width:wp("100%")
   },
   containtextbalance: {
     top: 15,

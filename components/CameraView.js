@@ -6,6 +6,7 @@ import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
 import Failed from "../modals/Failed";
 import Success from "../modals/Success";
+import Constants from "expo-constants";
 
 import {
   Button,
@@ -26,7 +27,7 @@ function CameraScreen(props) {
   // implementations
   const [sVisible, setsVisible] = useState(false);
   const [fvisivle, setfVisible] = useState(false);
-  const [facing, setFacing] = useState("back");
+  const [facing, setFacing] = useState("front");
   const [permission, requestPermission] = useCameraPermissions();
 
   const succeded = () => {
@@ -36,7 +37,7 @@ function CameraScreen(props) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
   const handleScanComplete = async () => {
-    await sleep(7000); // instead of sleep would be respons from backened
+    await sleep(70000); // instead of sleep would be respons from backened
     succeded();
   };
   // handle okay button from modal success take user to dashboard
@@ -112,10 +113,10 @@ function CameraScreen(props) {
         // animation
         style={{
           flex: 1,
-          top: hp("15%"),
+          top: hp("23%"),
           position: "absolute",
           margin: 0,
-          marginLeft: -20,
+          marginLeft: -18,
         }}
       >
         <LottieView
@@ -147,9 +148,10 @@ const styles = StyleSheet.create({
     height: hp("100%"),
     width: wp("100%"),
     backgroundColor: Color.lightPrimaryKeyBackground,
+    paddingTop: Constants.statusBarHeight,
   },
   cameraContainer: {
-    top: hp("30%"),
+    top: hp("38%"),
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonCancel: {
-    top: hp("80%"),
+    top: hp("78%"),
     left: wp("5%"),
   },
   textCancel: {

@@ -14,6 +14,7 @@ import {
 import { Image } from "expo-image";
 import { Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 import CoverAnimation from "../components/CoverAnimation";
+import { useState } from "react";
 /*
 lauch screen ; cover1
 second after that cover
@@ -27,19 +28,21 @@ vector images while user has not tapped any button
 screen/cover fully responsive 
 implement on tap login and create account logic
 */
-const Cover = () => {
+const StartScreen = () => {
+  const changeTextUi = "Pay Online Anywhere";
+  const [sText, setSText] = useState("A Secure Way to Bank");
   return (
     <View style={styles.cover1}>
-      <StatusBar/>
-      <Text style={styles.aSecureWay}>A Secure Way to Bank</Text>
+      <StatusBar />
+      <Text style={styles.aSecureWay}> {sText} </Text>
       <View style={styles.lineParent}>
         <View style={[styles.frameChild, styles.frameLayout]} />
         <View style={[styles.frameItem, styles.frameBorder]} />
         <View style={[styles.frameInner, styles.frameBorder]} />
       </View>
-       <View style={styles.animationStyle}>
+      <View style={styles.animationStyle}>
         <CoverAnimation></CoverAnimation>
-       </View>
+      </View>
       <TouchableOpacity
         onPress={() => console.log("pressed")}
         style={[styles.createAnAccount, styles.loginLayout]}
@@ -191,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cover;
+export default StartScreen;

@@ -6,8 +6,9 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Image } from "expo-image";
+import Constants from "expo-constants";
+import BottomBarHome from "../modals/BottomBarHome";
+
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -18,6 +19,7 @@ import {
 import constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import UserDashboard from "../modals/UserDashboard";
+import { color } from "react-native-elements/dist/helpers";
 
 const Status_BarHeight =
   Platform.OS === "ios" ? constants.statusBarHeight : StatusBar.currentHeight;
@@ -53,72 +55,13 @@ function DashBoard(props) {
       <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
       <View
         // bottom bar here
-        style={[styles.bottomBar, styles.bottomLayout]}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          
+        }}
       >
-        <Image
-          style={[styles.bottomBarChild, styles.bottomLayout]}
-          contentFit="cover"
-          source={require("../assets/rectangle-19368.png")}
-        />
-        <View style={[styles.bottomBarInner, styles.groupChild18Layout]}>
-          <View style={[styles.groupChild18, styles.groupChild18Layout]} />
-        </View>
-        <View style={[styles.groupParent1, styles.parentLayout]}>
-          <View style={[styles.homeParent, styles.parentLayout]}>
-            <Text style={styles.home1}>Home</Text>
-            <Image
-              style={[styles.iconlybulkhome, styles.iconlybulkhomePosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkhome.png")}
-            />
-          </View>
-          <TouchableOpacity
-            style={[styles.cardsParent, styles.moreGroupPosition]}
-          >
-            <Text style={[styles.cards, styles.cardsTypo]}>Cards</Text>
-            <Image
-              style={[styles.iconlybulkticket, styles.iconlybulkticketPosition]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.billsParent}>
-            <Text style={[styles.bills, styles.cardsTypo]}>Bills</Text>
-            <Image
-              style={[styles.iconlybulkticket1, styles.iconLayout]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket1.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.moreGroup, styles.moreGroupPosition]}
-          >
-            <Text style={[styles.cards, styles.cardsTypo]}>More</Text>
-            <Image
-              style={[
-                styles.iconlybulkcategory,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkcategory.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            // transfer button here
-            onPress={handleTransferButton}
-            style={styles.iconlybulkticketParent}
-          >
-            <Image
-              style={[
-                styles.iconlybulkticket2,
-                styles.iconlybulkticketPosition,
-              ]}
-              contentFit="cover"
-              source={require("../assets/iconlybulkticket2.png")}
-            />
-            <Text style={[styles.cards, styles.cardsTypo]}>Transfer</Text>
-          </TouchableOpacity>
-        </View>
+        <BottomBarHome onPressTransfer={handleTransferButton} />
       </View>
       <View
         // upper bar
@@ -126,7 +69,7 @@ function DashBoard(props) {
         style={{
           width: wp("100%"),
           height: hp("10%"),
-          top: hp("4%"),
+          top: hp("0%"),
           justifyContent: "center",
           flexDirection: "row",
           paddingTop: 15,
@@ -145,7 +88,7 @@ function DashBoard(props) {
         >
           <Ionicons
             style={{
-              left: 5,
+              left: 7,
             }}
             name="notifications"
             size={24}
@@ -166,7 +109,7 @@ function DashBoard(props) {
         >
           <Entypo
             style={{
-              left: 5,
+              left: 7,
             }}
             name="menu"
             size={24}
@@ -209,7 +152,7 @@ function DashBoard(props) {
       </View>
       <View
         style={{
-          top: hp("30%"),
+          top: hp("40%"),
           position: "absolute",
         }}
       >
@@ -222,6 +165,7 @@ function DashBoard(props) {
             left: "5%",
             right: "5%",
             borderRadius: 10,
+            position: "relative",
           }}
         >
           <View
@@ -369,10 +313,11 @@ function DashBoard(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Status_BarHeight,
+    paddingTop: Constants.statusBarHeight,
     width: wp("100%"),
     justifyContent: "flex-start",
     backgroundColor: "#ECEEF2",
+    height: hp("100%"),
   },
   iconLayout: {
     maxHeight: "100%",

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import { Border, Color } from "../GlobalStyles";
@@ -6,6 +5,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import Constants from "expo-constants";
+import { StatusBar } from "expo-status-bar";
 /*
 work done here 
 first to launch 
@@ -13,15 +14,18 @@ first to launch
 implement some logic 
 ones launch , 2s and it switches to cover
 */
-const Cover1 = () => {
+const SplashScreen = () => {
   return (
-    <View style={styles.cover0}>
-      <Image
-        style={styles.cover0Child}
-        contentFit="cover"
-        source={require("../assets/ellipse-1.png")}
-      />
-    </View>
+    <>
+      <StatusBar />
+      <View style={styles.cover0}>
+        <Image
+          style={styles.cover0Child}
+          contentFit="cover"
+          source={require("../assets/ellipse-1.png")}
+        />
+      </View>
+    </>
   );
 };
 
@@ -44,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cover1;
+export default SplashScreen;

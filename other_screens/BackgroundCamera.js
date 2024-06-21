@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text, Button } from "react-native";
 import { useState } from "react";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import {
@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 function BackgroundCamera(props) {
-  const [facing, setFacing] = useState("back");
+  const [facing, setFacing] = useState("front");
   const [permission, requestPermission] = useCameraPermissions();
   if (!permission) {
     // Camera permissions are still loading.
@@ -31,7 +31,7 @@ function BackgroundCamera(props) {
     >
       <View style={styles.cameraContainer}>
         <View style={styles.cameraWrapper}>
-          <CameraView  style={styles.camera} facing={facing}></CameraView>
+          <CameraView style={styles.camera} facing={facing}></CameraView>
         </View>
       </View>
     </View>

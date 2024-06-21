@@ -9,7 +9,10 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
+import Constants from "expo-constants";
+
 import { FontFamily, FontSize, Color, Border } from "../GlobalStyles";
 import {
   widthPercentageToDP as wp,
@@ -21,7 +24,7 @@ import BackgroundFaceScan from "../modals/BackgroundFaceScan";
 import Success from "../modals/Success";
 import Failed from "../modals/Failed";
 
-const SplashScreen = () => {
+const LoginScreen = () => {
   // checkbox logic also not implemented yet
   const [rememberMe, setRememberMe] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -80,69 +83,119 @@ const SplashScreen = () => {
 
   return (
     <>
-      <ScrollView>
+      <KeyboardAvoidingView
+        style={{
+          flex: 1,
+        }}
+      >
         <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
         <View style={styles.splashScreen}>
-          <Image
-            style={[styles.splashScreenChild, styles.phonePosition]}
-            contentFit="cover"
-            source={require("../assets/ellipse-1.png")}
-          />
-          <Text style={styles.welcomeToUnionpayContainer}>
-            <Text
-              style={[styles.welcomeToUnionpay, styles.loginTypo1]}
-            >{`Welcome to Unionpay
-`}</Text>
-            <Text style={styles.dontHaveAnAccountSignUp}>
-              <Text style={styles.dontHaveAnTypo}>{`
-Don’t have an account? `}</Text>
-              <View>
-                <TouchableOpacity
-                /// text button sign up
-                // logic not implemented yet
-                >
-                  <Text style={styles.loginTypo1}>Sign Up</Text>
-                </TouchableOpacity>
-              </View>
-            </Text>
-          </Text>
-          <TextInput
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            placeholder="Enter
-            Your
-            Email"
-            style={[
-              styles.enterPhoneNumber,
-              styles.loginTypo,
-              styles.phone,
-              styles.phoneLayout,
-            ]}
-          ></TextInput>
-
-          <TextInput
-            placeholder="Enter Your password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={[
-              styles.password1,
-              styles.password1Typo,
-              styles.password,
-              styles.tickBoxBorder,
-            ]}
-          ></TextInput>
-
-          <Image
-            style={styles.viewHidePass}
-            contentFit="cover"
-            source={require("../assets/view-hide-pass.png")}
-          />
           <View
             style={{
-              top: hp("58%"),
+              top: "10%",
+              position: "absolute",
+              left: "33%",
+            }}
+          >
+            <Image
+              style={[styles.splashScreenChild]}
+              contentFit="cover"
+              source={require("../assets/ellipse-1.png")}
+            />
+          </View>
+          <View
+            //
+            style={{
+              top: hp("23%"),
+              left: wp("20%"),
+            }}
+          >
+            <Text style={styles.welcomeToUnionpay}>Welcome to UnionPay</Text>
+          </View>
+          <View
+            /// dont have and sign up
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              position: "absolute",
+              top: hp("33%"),
+              left: wp("20%"),
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: FontFamily.interRegular,
+                fontSize: 15,
+                color: Color.colorDarkslateblue_200,
+              }}
+            >
+              Don't have an account?
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 15,
+                  left: 4,
+                  fontFamily: FontFamily.interExtraBold,
+                  color: Color.colorDarkslateblue_200,
+                }}
+              >
+                Sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              top: "40%",
+              flex: 1,
+              position: "absolute",
+              width: "100%",
+              left: "3%",
+            }}
+          >
+            <TextInput
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              placeholder="Enter
+            Your
+            Email"
+              style={{
+                left: "7%",
+                borderColor: Color.colorGray_200,
+                borderWidth: 1,
+                width: "75%",
+                height: 46,
+                borderRadius: Border.br_3xs,
+                padding: 10,
+                backgroundColor: "#c5c6c7",
+              }}
+            ></TextInput>
+
+            <TextInput
+              placeholder="Enter Your password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={{
+                left: "7%",
+                borderColor: Color.colorGray_200,
+                borderWidth: 1,
+                width: "75%",
+                height: 46,
+                borderRadius: Border.br_3xs,
+                padding: 10,
+                top: "15%",
+              }}
+            ></TextInput>
+          </View>
+
+          <View
+            style={{
+              top: hp("56.5%"),
               left: wp("3%"),
               width: wp("46%"),
+              position: "absolute",
+              flexDirection: "row",
             }}
           >
             <CheckBox
@@ -162,14 +215,11 @@ Don’t have an account? `}</Text>
           </View>
           <View
             style={{
-              top: hp("54%"),
+              top: hp("56.5%"),
               left: wp("58%"),
               width: wp("46%"),
-              borderWidth: 1, // Border width
-              borderColor: "transparent", // Border color
-              borderRadius: 5, // Border radius for rounded corners
-              padding: 10, // Padding inside the rectangle
               backgroundColor: "transparent",
+              position: "absolute",
             }}
           >
             <TouchableOpacity
@@ -211,23 +261,22 @@ Don’t have an account? `}</Text>
             onClose={() => setSuccessVerified(false)}
             messagebox={"Face recognized! You're in"}
           />
-          <Failed 
-          messagebox={"Authentication failed. Please retry again"}
-          isVisible={failedVer} onClose={() => setfailVer(false)} />
+          <Failed
+            messagebox={"Authentication failed. Please retry again"}
+            isVisible={failedVer}
+            onClose={() => setfailVer(false)}
+          />
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  phonePosition: {
-    left: "50%",
-    top: "40%",
-  },
   checkboxText: {
     fontFamily: FontFamily.interExtraBold,
     fontWeight: "bold",
+    color: Color.colorDarkslateblue_100,
   },
   checkboxContainer: {
     backgroundColor: "transparent", // Background color of the checkbox container
@@ -245,7 +294,7 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     position: "absolute",
-    top: hp("66%"),
+    top: hp("70%"),
     borderRadius: Border.br_31xl,
     width: wp("40%"),
     height: hp("6%"),
@@ -279,14 +328,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   splashScreenChild: {
-    marginTop: -248,
-    marginLeft: -57,
     width: wp("30%"),
     height: hp("15%"),
-    position: "absolute",
   },
   welcomeToUnionpay: {
-    fontSize: FontSize.size_xl,
+    fontSize: FontSize.size_5xl,
+    color: Color.colorDarkslateblue_200,
+    fontWeight: "bold",
   },
   dontHaveAnTypo: {
     fontFamily: FontFamily.interMedium,
@@ -296,13 +344,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     position: "relative",
   },
-  welcomeToUnionpayContainer: {
-    top: hp("30%"),
-    left: wp("25%"),
-    color: Color.colorDarkslateblue_200,
-    textAlign: "left",
-    position: "absolute",
-  },
+
   phone: {
     marginTop: 0,
     marginLeft: -148,
@@ -313,7 +355,6 @@ const styles = StyleSheet.create({
     top: "40%",
   },
   enterPhoneNumber: {
-    top: "42%",
     left: "25%",
     color: "rgba(0, 0, 0, 0.9)",
     width: "75%",
@@ -396,13 +437,11 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   splashScreen: {
-    borderRadius: Border.br_4xs,
-    flex: 1,
     width: "100%",
     height: hp("100%"),
-    overflow: "hidden",
     backgroundColor: Color.lightPrimaryKeyBackground,
+    paddingTop: Constants.statusBarHeight,
   },
 });
 
-export default SplashScreen;
+export default LoginScreen;

@@ -27,6 +27,15 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-font", "expo-camera"]
+    "plugins": [
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermisions": "Allow app to access camera",
+          "recordAudioAndroid": false
+        }
+      ]
+    ]
   }
 }
