@@ -20,65 +20,44 @@ import {
 } from "react-native-responsive-screen";
 import { CheckBox } from "react-native-elements";
 import ForgotPassword from "../modals/ForgotPassword";
-import BackgroundFaceScan from "../modals/BackgroundFaceScan";
-import Success from "../modals/Success";
-import Failed from "../modals/Failed";
+import Loading from "../modals/Loading";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   // checkbox logic also not implemented yet
   const [rememberMe, setRememberMe] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [password, setPassword] = useState();
 
   // handle forgot password
   const [visible, setvisible] = useState(false);
 
-  const [onclose, setOnclose] = useState(false);
+  const [loadin, setloadi] = useState(false);
 
   const getItClosed = () => {
     setvisible(false);
   };
 
-  // handle face scanning and detection background success and failed
-  const [faceScanVisible, setFaceScanVisible] = useState(false);
-  const [successVerified, setSuccessVerified] = useState(false);
-  const [failedVer, setfailVer] = useState(false);
-
-  // stop scan
-  const closeFaceScan = () => {
-    setFaceScanVisible(false);
-  };
   // sleep here
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-  // start scan
-  const startScan = async () => {
+  // start
+  const processing = async () => {
     // l
-    setFaceScanVisible(true);
-    await sleep(7000);
-    setFaceScanVisible(false);
-    succedded();
+    setloadi(true);
+    await sleep(5000);
+    setloadi(false);
+    navigation.navigate("LoginPass");
   };
 
-  // success
-  const succedded = () => {
-    setSuccessVerified(true);
-  };
-
-  // failed
-  const faileded = () => {
-    setfailVer(true);
-  };
   const handleLoginButton = () => {
     /*
     implement firebase logic here
     to authorise user ones everything set 
     then continue with face scan 
+    navigate to onloginPass screen 
     */
-    if (!faceScanVisible) {
-      startScan();
-    }
+    processing();
   };
 
   return (
@@ -131,7 +110,9 @@ const LoginScreen = () => {
             >
               Don't have an account?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.goBack("CreateAccount")}
+            >
               <Text
                 style={{
                   fontSize: 15,
@@ -250,22 +231,8 @@ const LoginScreen = () => {
             </TouchableOpacity>
           </View>
           <ForgotPassword onClose={getItClosed} isVisible={visible} />
-          <BackgroundFaceScan
-            isVisible={faceScanVisible}
-            onClose={closeFaceScan}
-          />
-          <Success
-            // onclose should navigate to dashboard
-            //
-            isVisible={successVerified}
-            onClose={() => setSuccessVerified(false)}
-            messagebox={"Face recognized! You're in"}
-          />
-          <Failed
-            messagebox={"Authentication failed. Please retry again"}
-            isVisible={failedVer}
-            onClose={() => setfailVer(false)}
-          />
+
+          <Loading isVisible={loadin} />
         </View>
       </KeyboardAvoidingView>
     </>

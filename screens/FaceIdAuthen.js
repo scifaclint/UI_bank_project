@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { FontFamily, FontSize, Color, Border } from "../GlobalStyles";
+import FaceEnrollCamera from "../other_screens/FaceEnrollCamera";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -11,7 +12,8 @@ import { StatusBar } from "expo-status-bar";
 
 
 
-const FaceIdAuthen = () => {
+const FaceIdAuthen = ({navigation}) => {
+
   return (
     <View style={styles.faceIdAuthen}>
       <StatusBar backgroundColor={Color.colorDarkslateblue_200} />
@@ -25,6 +27,7 @@ const FaceIdAuthen = () => {
       />
       <TouchableOpacity
         // scan logic would be implemented
+        onPress={()=> navigation.navigate("CameraScan")}
         style={styles.faceIdAuthenItem}
       >
         <Text style={styles.scanFaceText}>Scan</Text>

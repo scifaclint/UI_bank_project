@@ -1,42 +1,31 @@
-const Stack = createNativeStackNavigator();
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import Home from "./screens/Home";
-import WelcomeBack from "./screens/WelcomeBack";
-import FaceIdAuthen from "./screens/FaceIdAuthen";
-import TransferMainPage from "./screens/TransferMainPage";
-import CreateAnAccount from "./screens/CreateAnAccount";
-import RecentNotification from "./components/RecentNotification";
-import AnimationFaceId from "./components/AnimationFaceId";
-import Success from "./modals/Success";
-import CameraScreen from "./components/CameraView";
-import CreateAccountForms from "./screens/CreateAccountForms";
-import DashBoard from "./screens/DashBoard";
-import StartScreen from "./screens/StartScreen";
-import SplashScreen from "./screens/SplashScreen";
-// this is CreateAnAccount
-
+import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import Failed from "./modals/Failed";
-import ReviewPayment from "./modals/ReviewPayment";
+import { useEffect } from "react";
+const Stack = createNativeStackNavigator();
 import LoginScreen from "./screens/LoginScreen";
-import ForgotPassword from "./modals/ForgotPassword";
-import BackgroundFaceScan from "./modals/BackgroundFaceScan";
-import { CameraView } from "expo-camera";
-import BottomBarHome from "./modals/BottomBarHome";
+import StartScreen from "./screens/StartScreen";
+import CreateAccountForms from "./screens/CreateAccountForms";
+import SplashScreen from "./screens/SplashScreen";
+import DashBoard from "./screens/DashBoard";
+import OnLoginPass from "./screens/OnLooginPass";
+import FaceIdAuthen from "./screens/FaceIdAuthen";
+import FaceEnrollCamera from "./other_screens/FaceEnrollCamera";
 import BackgroundCamera from "./other_screens/BackgroundCamera";
+import ReviewPayment from "./screens/ReviewPayment";
+import TransferMainPage from "./screens/TransferMainPage";
+
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-
+  useEffect(() => {
+    // Simulate some initialization tasks (e.g., fetching data, initializing services)
+    // Replace  actual initialization logic
+    setTimeout(() => {
+      setHideSplashScreen(false); // Hide splash screen after 2 seconds (adjust as needed)
+    }, 2000); // Adjust the delay as needed
+  }, []);
   const [fontsLoaded, error] = useFonts({
     "DMSans-Medium": require("./assets/fonts/DMSans-Medium.ttf"),
     "Poppins-ExtraLight": require("./assets/fonts/Poppins-ExtraLight.ttf"),
@@ -57,7 +46,73 @@ const App = () => {
   if (!fontsLoaded && !error) {
     return null;
   }
-
-  return <StartScreen></StartScreen>;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Start"
+          component={StartScreen}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+            headerLeft: null,
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
+          name="createAccount"
+          component={CreateAccountForms}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FaceAuthen"
+          component={FaceIdAuthen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CameraScan"
+          component={FaceEnrollCamera}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DashBoard"
+          component={DashBoard}
+          options={{
+            headerShown: false,
+            headerLeft: null,
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
+          name="Transfer"
+          component={TransferMainPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Review"
+          component={ReviewPayment}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="BackgroundCamera"
+          component={BackgroundCamera}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LoginPass"
+          component={OnLoginPass}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+            headerLeft: null,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 export default App;

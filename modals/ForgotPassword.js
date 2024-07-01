@@ -16,29 +16,27 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import AppBottom from "../components/AppBottom";
-
+import Alerts from "../effects/Alerts";
 function ForgotPassword({ isVisible, onClose }) {
   const [email, setEmail] = useState("");
-
+  const [isvisible, setVisible] = useState(false);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [typealert, setTypeAlert] = useState("");
   const handleReset = () => {
     // implement link sending logic here
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (pattern.test(email)) {
-      Alert.alert(
-        "Reset Link sent",
-        `Password reset link sent to ${email}. Check your email`
-      ),
-        [{ text: "Ok", onPress: () => Alert.dismiss() }];
-      onClose();
+      setTitle("Reset Link sent");
+      setTypeAlert("success");
+      setMessage(`Password reset link sent to ${email}. Check your email`);
+      setVisible(true);
     } else {
-      Alert.alert("Invalid Email", "Please enter a valid email address"),
-        [
-          {
-            text: "Ok",
-            onPress: () => Alert.dismiss(),
-          },
-        ];
+      setTitle("Invalid Email");
+      setTypeAlert("failed");
+      setMessage("Please enter a valid email address");
+      setVisible(true);
     }
   };
 
@@ -72,6 +70,13 @@ function ForgotPassword({ isVisible, onClose }) {
             <View style={styles.appbottom}>
               <AppBottom onPress={handleReset} text="Reset" />
             </View>
+            <Alerts
+              showAlert={isvisible}
+              title={title}
+              message={message}
+              hideVerifyAlert={() => setVisible(false)}
+              typeOfAlert={typealert}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

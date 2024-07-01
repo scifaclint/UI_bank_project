@@ -5,6 +5,7 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 import Constants from "expo-constants";
 import BottomBarHome from "../modals/BottomBarHome";
@@ -19,18 +20,33 @@ import {
 import constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import UserDashboard from "../modals/UserDashboard";
-import { color } from "react-native-elements/dist/helpers";
-
+import Alerts from "../effects/Alerts";
+import { useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 const Status_BarHeight =
   Platform.OS === "ios" ? constants.statusBarHeight : StatusBar.currentHeight;
-function DashBoard(props) {
+function DashBoard({ navigation }) {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Prevent default behavior of going back to the previous screen
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   /*
   animation functions
   */
   // handle modal here
 
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [isvisible, setVisible] = useState(false);
   const handleUserDashboard = () => {
     setModalVisible(true);
   };
@@ -44,11 +60,17 @@ function DashBoard(props) {
     alert or display a message for user to confirm logout
     on yes : close both modals and navigate to login screen 
     on no , just close alert 
-
+    n
     */
+    setVisible(true);
+  };
+  const logout = () => {
+    setVisible(false);
+    navigation.navigate("Login");
   };
   const handleTransferButton = () => {
     // handle transfer button pressed here
+    navigation.navigate("Transfer");
   };
   return (
     <View style={styles.container}>
@@ -58,7 +80,6 @@ function DashBoard(props) {
         style={{
           position: "absolute",
           bottom: 0,
-          
         }}
       >
         <BottomBarHome onPressTransfer={handleTransferButton} />
@@ -217,96 +238,15 @@ function DashBoard(props) {
         animation={"fade"}
         logout={handleLogout}
       ></UserDashboard>
-      {
-        // rejected code for now
-        /*
-
-        <TouchableOpacity
-        onPress={handleTransferButton}
-        // Transfer money
-        style={{
-          flexDirection: "row",
-          width: wp("90%"),
-          height: hp("8%"),
-          left: "5%",
-          right: "5%",
-          borderRadius: 10,
-          top: "48%",
-          position: "absolute",
-          backgroundColor: "#e4f0ff",
-        }}
-      >
-        <View
-          style={{
-            top: "20%",
-            height: 35,
-            width: 33,
-            backgroundColor: "#DA7CF5",
-            borderRadius: 10,
-            left: "85%",
-            position: "absolute",
-          }}
-        >
-          <Feather
-            style={{
-              top: 7,
-              left: 3,
-            }}
-            name="send"
-            size={24}
-            color="white"
-          />
-        </View>
-        <Text
-          style={{
-            top: 20,
-            left: 10,
-            fontFamily: FontFamily.interExtraBold,
-            color: "#4e4e54",
-            fontSize: 15,
-          }}
-        >
-          Transfer Money{" "}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        // explore no need for action
-        style={{
-          flexDirection: "row",
-          width: wp("90%"),
-          height: hp("15%"),
-          left: "5%",
-          right: "5%",
-          borderRadius: 10,
-          top: "58%",
-          position: "absolute",
-          backgroundColor: "#edfcec",
-        }}
-      >
-        <View
-          style={{
-            top: "25%",
-            borderRadius: 10,
-            left: "7%",
-            position: "absolute",
-          }}
-        >
-          <FontAwesome5 name="money-check-alt" size={40} color="#DA7CF5" />
-        </View>
-        <Text
-          style={{
-            top: 41,
-            left: "85%",
-            fontFamily: FontFamily.interExtraBold,
-            color: "#4e4e54",
-            fontSize: 15,
-          }}
-        >
-          Explore Budget
-        </Text>
-      </TouchableOpacity>
-        */
-      }
+      <Alerts
+        showAlert={isvisible}
+        title={"Confirm LogOut"}
+        message={"Are you sure you want to log out?"}
+        hideVerifyAlert={logout}
+        typeOfAlert={"failed"}
+        cancelHide={() => setVisible(false)}
+        showCancel={true}
+      />
     </View>
   );
 }

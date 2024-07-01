@@ -2,11 +2,8 @@ import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 import { useState } from "react";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-function BackgroundCamera(props) {
+
+function BackgroundCamera({ type }) {
   const [facing, setFacing] = useState("front");
   const [permission, requestPermission] = useCameraPermissions();
   if (!permission) {
@@ -25,6 +22,7 @@ function BackgroundCamera(props) {
       </View>
     );
   }
+if (type == "payment"){
   return (
     <View
     //camera implementations
@@ -36,6 +34,22 @@ function BackgroundCamera(props) {
       </View>
     </View>
   );
+}
+if (type == "login"){
+    return (
+      // logic and api stuffs here 
+      
+      <View
+      //camera implementations
+      >
+        <View style={styles.cameraContainer}>
+          <View style={styles.cameraWrapper}>
+            <CameraView style={styles.camera} facing={facing}></CameraView>
+          </View>
+        </View>
+      </View>
+    );
+}
 }
 const styles = StyleSheet.create({
   cameraContainer: {

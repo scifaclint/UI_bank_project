@@ -28,7 +28,7 @@ vector images while user has not tapped any button
 screen/cover fully responsive 
 implement on tap login and create account logic
 */
-const StartScreen = () => {
+const StartScreen = ({ navigation }) => {
   const changeTextUi = "Pay Online Anywhere";
   const [sText, setSText] = useState("A Secure Way to Bank");
   return (
@@ -44,7 +44,7 @@ const StartScreen = () => {
         <CoverAnimation></CoverAnimation>
       </View>
       <TouchableOpacity
-        onPress={() => console.log("pressed")}
+        onPress={() => navigation.navigate("createAccount")}
         style={[styles.createAnAccount, styles.loginLayout]}
         /// button here create an account
       >
@@ -53,7 +53,7 @@ const StartScreen = () => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => console.log("pressed")}
+        onPress={() => navigation.navigate("Login")}
         style={[styles.login, styles.loginLayout]}
         /// button login onpress not implemented yet
       >

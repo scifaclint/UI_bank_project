@@ -18,12 +18,13 @@ import {
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
 import { CheckBox } from "react-native-elements";
+import { Col } from "react-native-table-component";
 
 //
 const Status_BarHeight =
   Platform.OS === "ios" ? constants.statusBarHeight : StatusBar.currentHeight;
 
-function CreateAccountForms(props) {
+function CreateAccountForms({ navigation }) {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -47,19 +48,19 @@ function CreateAccountForms(props) {
     check box state for "true"
     password length requirement before navigations
     */
-    if ((firstName && lastName) === "") {
-      giveAlert("Validation Error", "Your Name must not be empty");
-    }
-    if (password.length < 4) {
-      giveAlert("Validation Error", "Password must be atleast 4 characters");
-    }
-    if (pattern.test(email)) {
-      giveAlert("Invalid Email", "Please enter a valid email adrress");
-    }
-    if (!agreeT) {
-      giveAlert("Validation Error", "Please accept Terms of Service");
-    }
-
+    // if ((firstName && lastName) === "") {
+    //   giveAlert("Validation Error", "Your Name must not be empty");
+    // }
+    // if (password.length < 4) {
+    //   giveAlert("Validation Error", "Password must be atleast 4 characters");
+    // }
+    // if (pattern.test(email)) {
+    //   giveAlert("Invalid Email", "Please enter a valid email adrress");
+    // }
+    // if (!agreeT) {
+    //   giveAlert("Validation Error", "Please accept Terms of Service");
+    // }
+    navigation.navigate("FaceAuthen");
   };
 
   return (
@@ -194,7 +195,8 @@ function CreateAccountForms(props) {
             Already have an account ?
           </Text>
           <TouchableOpacity
-          // handle onpress later
+            onPress={() => navigation.navigate("Login")}
+            // handle onpress later
           >
             <Text
               style={{
@@ -242,6 +244,7 @@ const styles = StyleSheet.create({
     paddingTop: Status_BarHeight,
     width: wp("100%"),
     justifyContent: "flex-start",
+    backgroundColor: Color.lightPrimaryKeyBackground,
   },
   imageTop: {
     top: "50%",

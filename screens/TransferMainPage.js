@@ -16,7 +16,7 @@ import { FontFamily, FontSize, Color, Border, Padding } from "../GlobalStyles";
 import BottomBar from "../components/BottomBar";
 import AppBottom from "../components/AppBottom";
 
-const TransferMainPage = () => {
+const TransferMainPage = ({navigation}) => {
   const [getDestination, setDestination] = React.useState();
   const [amount, setAmount] = React.useState();
   const handPressed = () => {
@@ -27,7 +27,7 @@ const TransferMainPage = () => {
     confirm button
 
     */
-    console.log("pressed");
+    navigation.navigate("Review")
   };
   return (
     <View style={styles.transferMainPage}>

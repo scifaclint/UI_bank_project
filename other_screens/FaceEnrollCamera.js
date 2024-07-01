@@ -4,60 +4,55 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Color, FontSize, FontFamily, Border } from "../GlobalStyles";
 import LottieView from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
-import Failed from "../modals/Failed";
-import Success from "../modals/Success";
 import Constants from "expo-constants";
-
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Alert,
-} from "react-native";
+import Alerts from "../effects/Alerts";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const messaBoxSuccess = "Great Job! Face ID setup finished";
-
-function CameraScreen(props) {
+function FaceEnrollCamera({ type, navigation }) {
   // implementations
-  const [sVisible, setsVisible] = useState(false);
-  const [fvisivle, setfVisible] = useState(false);
-  const [facing, setFacing] = useState("front");
+  const [facing, setFacing] = useState("back");
   const [permission, requestPermission] = useCameraPermissions();
-
-  const succeded = () => {
-    setsVisible(true);
-  };
+  const [alertBox, setAlertBox] = useState(false);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [typeAlert, setTypeAlert] = useState("nothing");
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-  const handleScanComplete = async () => {
-    await sleep(70000); // instead of sleep would be respons from backened
-    succeded();
+  renderAlert = () => {
+    setTypeAlert("success");
+    setTitle(" Enrollment Successful!");
+    setMessage("Great Job! Face ID setup finished");
+    setAlertBox(true);
   };
-  // handle okay button from modal success take user to dashboard
 
-  const handleOkayModal = () => {
-    // alert message , navigate to dashboard
-    // replace onPress inside alert with a function to navigate to dashboard
-    Alert.alert(
-      "Successful",
-      "Your Account was successully created,you will now be directed to your dasboard"
-    ),
-      [{ text: "Ok", onPress: () => Alert.dismiss() }];
+  // success
+  setTimeout(renderAlert, 7000);
+  // failed
+  const alertFailed = () => {
+    setTitle(" Enrollment Failed!");
+    setTypeAlert("failed");
+    setMessage("Face not enrolled. Make sure your face is within the frame");
+    setAlertBox(true);
   };
-  // handle failed okay
-  const failCapture = () => {
-    // logic here
+  // hideAlert after confirm
+  const hideAlert = () => {
+    // implement either to hide and nav to dashboard
+    // or just hide
+
+    setAlertBox(false);
+    setTypeAlert("nothing");
+    navigation.replace("DashBoard");
   };
+
   // cancel scan
   const cancelScan = () => {
     // navigate back to forms create account
+    navigation.navigate("FaceAuthen");
   };
   if (!permission) {
     // Camera permissions are still loading.
@@ -75,7 +70,6 @@ function CameraScreen(props) {
       </View>
     );
   }
-  handleScanComplete();
   return (
     <View
       // main containe
@@ -95,7 +89,6 @@ function CameraScreen(props) {
           Position your face in the circle
         </Text>
       </View>
-
       <View style={styles.cameraContainer}>
         <View style={styles.cameraWrapper}>
           <CameraView style={styles.camera} facing={facing}></CameraView>
@@ -126,17 +119,12 @@ function CameraScreen(props) {
           style={styles.lottie}
         ></LottieView>
       </View>
-      <Success
-        messagebox={messaBoxSuccess}
-        isVisible={sVisible}
-        onClose={handleOkayModal}
-      />
-      <Failed
-        isVisible={fvisivle}
-        onClose={failCapture}
-        messagebox={
-          "Face not enrolled. Make sure your face is within the frame"
-        }
+      <Alerts
+        showAlert={alertBox}
+        title={title}
+        message={message}
+        hideVerifyAlert={hideAlert}
+        typeOfAlert={typeAlert}
       />
     </View>
   );
@@ -226,4 +214,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CameraScreen;
+export default FaceEnrollCamera;

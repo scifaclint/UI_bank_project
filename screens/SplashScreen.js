@@ -14,7 +14,7 @@ first to launch
 implement some logic 
 ones launch , 2s and it switches to cover
 */
-const SplashScreen = () => {
+const SplashScreen = ({navigation}) => {
   return (
     <>
       <StatusBar />

@@ -3,11 +3,8 @@ import {
   View,
   StyleSheet,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
   Platform,
-
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackArrow from "../components/BackArrow";
@@ -20,9 +17,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import Success from "./Success";
-import Failed from "./Failed";
-import BackgroundFaceScan from "./BackgroundFaceScan";
+import Alerts from "../effects/Alerts";
+import BackgroundFaceScan from "../modals/BackgroundFaceScan";
 const Status_BarHeight =
   Platform.OS === "ios" ? Constants.statusBarHeight : StatusBar.currentHeight;
 
@@ -33,39 +29,67 @@ const dataTesting = {
   Charges: "GHS 0.50",
   Total: "GHS 100.50",
 };
-function ReviewPayment({ isVisible = true, onClose }) {
+function ReviewPayment({ type, navigation }) {
   const [receiverName, setReceivername] = useState("Yaw Acheampong Clinton");
   const [faceScanVisible, setFaceScanVisible] = useState(false);
-  const [successVerified, setSuccessVerified] = useState(false);
-  const [failedVer, setfailVer] = useState(false);
-  console.log(Status_BarHeight);
+  const [alertBox, setAlertBox] = useState(false);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [typeAlert, setTypeAlert] = useState("");
+  const successState = "true";
+
   // handle face scanning and detection background success and failed
 
-  // stop scan
-  const closeFaceScan = () => {
-    setFaceScanVisible(false);
-  };
   // sleep here
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-  // start scan
-  const startScan = async () => {
-    setFaceScanVisible(true);
-    await sleep(7000);
-    setFaceScanVisible(false);
-    succedded();
+  // update balance
+  const updateBothUsersBalance = (sender, receiver) => {
+    // logic here
   };
+  // scan
+  const startScan = async () => {
+    // l
+    setFaceScanVisible(true);
+    await sleep(7000); // await model feedback
 
+    setFaceScanVisible(false); // close camera on response
+    // by updating success to false/true
+    // if model verifies with true
+    // call updateBothUserBalance and update server
+    // base on response render alert success or failed
+
+    if (successState == "true") {
+      alertSuccess();
+    } else {
+      alertFailed();
+    }
+  };
   // success
-  const succedded = () => {
-    setSuccessVerified(true);
+  const alertSuccess = () => {
+    setTypeAlert("success");
+    setTitle("Payment Complete !");
+    setMessage("Your payment has been completed.");
+    setAlertBox(true);
+
+    // logic to update both users balance on server
   };
 
   // failed
-  const faileded = () => {
-    setfailVer(true);
+  const alertFailed = () => {
+    setTitle(" Payment Declined!");
+    setTypeAlert("failed");
+    setMessage("There was a problem verifying your face. Please try again.");
+    setAlertBox(true);
   };
+  const hideAlert = () => {
+    // implement either to hide and nav to dashboard
+    // or just hide
+
+    setAlertBox(false);
+  };
+
   const handlePay = () => {
     /*
     implement firebase logic here
@@ -254,25 +278,26 @@ function ReviewPayment({ isVisible = true, onClose }) {
               // cancel button
               style={styles.cancelbutton}
             >
-              <TouchableOpacity style={styles.stylecancelellipse}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Transfer")}
+                style={styles.stylecancelellipse}
+              >
                 <Text style={styles.canceltext}>Close</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <Success
-            // proper logic later
-            isVisible={successVerified}
-            onClose={() => setSuccessVerified(false)}
-          />
-          <Failed
-            // proper logic later
-            isVisible={failedVer}
-            onClose={() => setfailVer(false)}
-          />
           <BackgroundFaceScan
             isVisible={faceScanVisible}
             // would implement proper logic later
             onClose={() => setFaceScanVisible(false)}
+            type={"payment"}
+          />
+          <Alerts
+            showAlert={alertBox}
+            title={title}
+            message={message}
+            hideVerifyAlert={hideAlert}
+            typeOfAlert={typeAlert}
           />
         </View>
       </SafeAreaView>
@@ -293,11 +318,11 @@ const styles = StyleSheet.create({
     left: "3%",
   },
   reviewPayment: {
-    top:0,
+    top: 0,
     height: 70,
     position: "absolute",
     backgroundColor: Color.colorDarkslateblue_600,
-    width:wp("100%")
+    width: wp("100%"),
   },
   containtextbalance: {
     top: 15,

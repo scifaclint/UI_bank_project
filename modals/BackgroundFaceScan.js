@@ -11,8 +11,7 @@ import {
 import BackgroundCamera from "../other_screens/BackgroundCamera";
 import AppBottom from "../components/AppBottom";
 
-function BackgroundFaceScan({ isVisible, onClose }) {
-
+function BackgroundFaceScan({ isVisible, onClose, type }) {
   // implement some logic to close cameraview ones not needed
   return (
     <>
@@ -25,7 +24,6 @@ function BackgroundFaceScan({ isVisible, onClose }) {
           justifyContent: "flex-end",
         }}
         isVisible={isVisible}
-        
       >
         <View
           style={{
@@ -57,7 +55,7 @@ function BackgroundFaceScan({ isVisible, onClose }) {
               left: wp("200%"),
             }}
           >
-            <BackgroundCamera />
+            <BackgroundCamera type={type} />
           </View>
           <View
             // animation
